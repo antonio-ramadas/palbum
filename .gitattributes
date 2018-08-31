@@ -1,0 +1,10 @@
+* text=auto
+
+*.gitattributes text
+.gitignore text
+*.md text
+.editorconfig text
+
+*.png binary
+
+*.js text eol=lf

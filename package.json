@@ -1,0 +1,21 @@
+{
+  "name": "palbum",
+  "version": "0.1.0",
+  "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "author": "António Ramadas",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^2.0.8"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
