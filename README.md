@@ -7,6 +7,8 @@
  - [ ] Improve [README.md](readme.md)
  - [ ] Add settings?
  - [ ] Add _About Me_
+ - [ ] Build
+ - [ ] Advertise ([Product Hunt](https://www.producthunt.com), [Hacker News](https://news.ycombinator.com))
 
 ### Acknowledgments
 
