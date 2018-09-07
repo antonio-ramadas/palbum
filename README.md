@@ -6,7 +6,7 @@
  - [ ] Add shortcuts (global, arrows, selection, search)
  - [ ] Improve [README.md](readme.md)
  - [ ] Add settings?
- - [ ] Add _About Me_
+ - [ ] Add website
  - [ ] Build
  - [ ] Advertise ([Product Hunt](https://www.producthunt.com), [Hacker News](https://news.ycombinator.com))
 
