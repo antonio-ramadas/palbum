@@ -14,10 +14,30 @@ const store = new Store({
 
 let tray;
 let callbackServer;
+let spotifyApi;
 
 function createServer() {
     callbackServer = http.createServer((req, res) => {
+        const code = req.url.match(/code=(.+)/)[1];
+
         res.end();
+
+        spotifyApi.authorizationCodeGrant(code).then(
+            /* eslint-disable */
+            (data) => {
+                console.log(`The token expires in ${data.body.expires_in}`);
+                console.log(`The access token is ${data.body.access_token}`);
+                console.log(`The refresh token is ${data.body.refresh_token}`);
+
+                // Set the access token on the API object to use it in later calls
+                spotifyApi.setAccessToken(data.body.access_token);
+                spotifyApi.setRefreshToken(data.body.refresh_token);
+            },
+            (err) => {
+                console.log('Something went wrong!', err);
+            },
+            /* eslint-enable */
+        );
         // TODO close browser window
         // TODO activate spotify api, but first grab what we want (token)
         // TODO close server
@@ -28,13 +48,15 @@ function createServer() {
 
 function spotify() {
     const scopes = ['user-read-playback-state'];
+    const credentials = {
+        redirectUri: store.get('redirectUri'),
+        clientId: store.get('clientId'),
+        clientSecret: store.get('clientSecret'),
+    };
 
     // Setting credentials can be done in the wrapper's constructor,
     // or using the API object's setters.
-    const spotifyApi = new SpotifyWebApi({
-        redirectUri: store.get('redirectUri'),
-        clientId: store.get('clientId'),
-    });
+    spotifyApi = new SpotifyWebApi(credentials);
 
     // Create the authorization URL
     const authorizeURL = spotifyApi.createAuthorizeURL(scopes);
@@ -59,9 +81,11 @@ function createTray() {
     // TODO this should be a pop-up to the user
     // In the meantime use environment variables
     if (!store.get('clientId')) {
-        store.set('clientId', process.env.CLIENT_ID);
-        store.set('clientSecret', process.env.CLIENT_SECRET);
-        store.set('redirectUri', process.env.REDIRECT_URI);
+        store.set({
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            redirectUri: process.env.REDIRECT_URI,
+        });
     }
 
     spotify();
