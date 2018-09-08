@@ -4,9 +4,10 @@
   "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
+    "start": "node_modules/.bin/electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "node_modules/.bin/eslint .",
+      "postinstall": "ln -s ../../git-hooks/pre-commit.sh .git/hooks/pre-commit"
   },
   "author": "António Ramadas",
   "license": "MIT",
