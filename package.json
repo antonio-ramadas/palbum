@@ -1,24 +1,24 @@
 {
-  "name": "palbum",
-  "version": "0.1.0",
-  "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
-  "main": "index.js",
-  "scripts": {
-    "start": "node_modules/.bin/electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "node_modules/.bin/eslint .",
-      "postinstall": "ln -s ../../git-hooks/pre-commit.sh .git/hooks/pre-commit"
-  },
-  "author": "António Ramadas",
-  "license": "MIT",
-  "dependencies": {
-    "electron": "^2.0.8",
-    "electron-store": "^2.0.0",
-    "spotify-web-api-node": "^3.1.1"
-  },
-  "devDependencies": {
-    "eslint": "^5.4.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0"
-  }
+    "name": "palbum",
+    "version": "0.1.0",
+    "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
+    "main": "index.js",
+    "scripts": {
+        "start": "node_modules/.bin/electron .",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "node_modules/.bin/eslint .",
+        "postinstall": "ln -Fs ../../git-hooks/pre-commit.sh .git/hooks/pre-commit"
+    },
+    "author": "António Ramadas",
+    "license": "MIT",
+    "dependencies": {
+        "electron": "^2.0.8",
+        "electron-store": "^2.0.0",
+        "spotify-web-api-node": "^3.1.1"
+    },
+    "devDependencies": {
+        "eslint": "^5.4.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-plugin-import": "^2.14.0"
+    }
 }
