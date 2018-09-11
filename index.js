@@ -16,6 +16,10 @@ let tray;
 let callbackServer;
 let spotifyApi;
 
+// TODO add Heroku server
+// TODO add instructions to configure both Spotify and Heroku
+// TODO allow further customization (redirectUri, server instead of local)
+
 function createServer() {
     callbackServer = http.createServer((req, res) => {
         const code = req.url.match(/code=(.+)/)[1];
