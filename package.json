@@ -1,16 +1,19 @@
 {
     "name": "palbum",
     "version": "0.1.0",
+    "author": "António Ramadas",
+    "license": "MIT",
+    "keywords": ["spotify"],
+    "homepage": "https://github.com/antonio-ramadas/palbum",
+    "repository": "github:antonio-ramadas/palbum",
     "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
     "main": "index.js",
     "scripts": {
         "start": "node_modules/.bin/electron .",
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "node_modules/.bin/eslint .",
-        "postinstall": "ln -Fs ../../git-hooks/pre-commit.sh .git/hooks/pre-commit"
+        "postinstall": "chmod +x postinstall.sh && sh postinstall.sh"
     },
-    "author": "António Ramadas",
-    "license": "MIT",
     "dependencies": {
         "electron": "^2.0.8",
         "electron-store": "^2.0.0",
