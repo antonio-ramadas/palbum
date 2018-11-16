@@ -3,7 +3,9 @@
     "version": "0.1.0",
     "author": "António Ramadas",
     "license": "MIT",
-    "keywords": ["spotify"],
+    "keywords": [
+        "spotify"
+    ],
     "homepage": "https://github.com/antonio-ramadas/palbum",
     "repository": "github:antonio-ramadas/palbum",
     "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
@@ -15,8 +17,9 @@
         "postinstall": "chmod +x postinstall.sh && sh postinstall.sh"
     },
     "dependencies": {
-        "electron": "^2.0.8",
+        "electron": "^3.0.9",
         "electron-store": "^2.0.0",
+        "spotify-authentication": "^0.2.0",
         "spotify-web-api-node": "^3.1.1"
     },
     "devDependencies": {
