@@ -50,7 +50,7 @@ class Authentication {
         this.store.set('accessToken', res.access_token);
 
         // REVIEW: Should the access token be updated in the background constantly?
-        setTimeout(this.updateAccessToken.bind(this), res.expires_in - 100);
+        setTimeout(this.updateAccessToken.bind(this), (res.expires_in - 5) * 1000);
     }
 
     updateAccessToken() {
