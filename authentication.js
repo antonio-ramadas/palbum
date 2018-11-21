@@ -24,14 +24,14 @@ class Authentication {
 
         return new Promise((resolve, reject) => {
             const server = http.createServer((req, res) => {
-                const code = req.url.match(/code=(.+)/)[1];
-
                 res.end();
 
-                if (code) {
+                const codeRgx = req.url.match(/code=(.+)/);
+
+                if (codeRgx.length > 0) {
                     window.close();
                     server.close();
-                    this.getRefreshToken(code)
+                    this.getRefreshToken(codeRgx[1])
                         .then(resolve, reject);
                 }
             }).listen(1995);
