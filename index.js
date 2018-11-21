@@ -3,11 +3,9 @@ const menubar = require('menubar');
 const path = require('path');
 const Authentication = require('./authentication');
 
-let authentication;
+const authentication = new Authentication();
 
 function createTray() {
-    authentication = new Authentication();
-
     authentication.authenticate().then(console.log, console.error);
 
     menubar({

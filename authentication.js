@@ -63,13 +63,13 @@ class Authentication {
     }
 
     authenticate() {
-        let f = this.newAuthentication.bind(this);
+        let f = this.newAuthentication;
 
         if (this.store.has('refreshToken')) {
-            f = this.updateAccessToken.bind(this);
+            f = this.updateAccessToken;
         }
 
-        return f();
+        return f.bind(this)();
     }
 }
 
