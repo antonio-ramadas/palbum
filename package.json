@@ -1,31 +1,38 @@
 {
-    "name": "palbum",
-    "version": "0.1.0",
-    "author": "António Ramadas",
-    "license": "MIT",
-    "keywords": [
-        "spotify"
-    ],
-    "homepage": "https://github.com/antonio-ramadas/palbum",
-    "repository": "github:antonio-ramadas/palbum",
-    "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
-    "main": "index.js",
-    "scripts": {
-        "start": "node_modules/.bin/electron .",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "node_modules/.bin/eslint .",
-        "postinstall": "chmod +x postinstall.sh && sh postinstall.sh"
-    },
-    "dependencies": {
-        "electron": "^3.0.9",
-        "electron-store": "^2.0.0",
-        "menubar": "^5.2.3",
-        "spotify-authentication": "^0.3.0",
-        "spotify-web-api-node": "^3.1.1"
-    },
-    "devDependencies": {
-        "eslint": "^5.4.0",
-        "eslint-config-airbnb-base": "^13.1.0",
-        "eslint-plugin-import": "^2.14.0"
-    }
+  "name": "palbum",
+  "version": "0.1.0",
+  "author": "António Ramadas",
+  "license": "MIT",
+  "keywords": [
+    "spotify"
+  ],
+  "homepage": "./",
+  "repository": "github:antonio-ramadas/palbum",
+  "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
+  "scripts": {
+    "start": "node electronWaitReact.js",
+    "react": "react-scripts start",
+    "electron": "node_modules/.bin/electron .",
+    "test": "react-scripts test",
+    "lint": "node_modules/.bin/eslint .",
+    "postinstall": "chmod +x postinstall.sh && sh postinstall.sh",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "electron": "^3.0.10",
+    "electron-store": "^2.0.0",
+    "menubar": "^5.2.3",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1",
+    "spotify-authentication": "0.3.0",
+    "spotify-web-api-node": "^4.0.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -9,7 +9,7 @@ function createTray() {
     authentication.authenticate().then(console.log, console.error);
 
     menubar({
-        index: 'https://via.placeholder.com/400',
+        index: 'http://localhost:3000/', // https://via.placeholder.com/400',
         icon: path.join(__dirname, 'resources/icons/PablumTemplate.png'),
         tooltip: 'Resume playing Spotify back where you left off',
         preloadWindow: true,
