@@ -48,15 +48,13 @@ class App extends Component {
 
         return (
             <>
-                <div className="wrap">
-                    <div className="search">
-                        <input type="text" className="searchTerm" placeholder="What do you want to hear?"/>
-                        <button type="submit" className="searchButton">
-                            <span role="img" aria-label="Search emoji">&#128269;</span>
-                        </button>
-                    </div>
+                <div className="search">
+                    <input type="text" className="searchTerm" placeholder="What do you want to hear?"/>
+                    <button type="submit" className="searchButton">
+                        <span role="img" aria-label="Search emoji">&#128269;</span>
+                    </button>
                 </div>
-                <table className="album-table">
+                <table>
                     <tbody>
                         {table}
                     </tbody>

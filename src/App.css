@@ -11,16 +11,15 @@ td:hover {
     cursor: pointer;
 }
 
-tr {
-    overflow: auto;
-}
-
-.album-table {
+table {
+    padding-top: 36px;
     width: 100%;
 }
 
 .search {
     display: flex;
+    position: fixed;
+    width: 100%;
 }
 
 .searchTerm {
