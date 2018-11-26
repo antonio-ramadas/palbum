@@ -6,9 +6,8 @@ tr {
     overflow: auto;
 }
 
-.img-cell {
-    width: 40px;
-    height: 40px;
+.album-table {
+    width: 100%;
 }
 
 .search {
