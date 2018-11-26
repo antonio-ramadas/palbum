@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './AlbumComponent.css'
+import './AlbumComponent.css';
 
 class AlbumComponent extends Component {
     render() {
         return (
             <tr>
                 <td className="img-cell">
-                    <img src={this.props.url} alt={this.props.albumTitle + "'s Icon"}/>
+                    <img src={this.props.url} alt={`${this.props.albumTitle}'s Icon`}/>
                 </td>
                 <td>
                     <div>

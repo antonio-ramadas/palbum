@@ -1,3 +1,9 @@
 {
-    "extends": "react-app"
+    "extends": [
+        "airbnb-base",
+        "react-app"
+    ],
+    "rules": {
+        "indent": ["error", 4]
+    }
 }
