@@ -1,9 +1,14 @@
 table tr:nth-child(odd) {
-    background-color: #eee;
+    background-color: #47c7d612;
 }
 
 td p, td h3 {
     margin:0;
+}
+
+td:hover {
+    background-color: #32d6d07a;
+    cursor: pointer;
 }
 
 tr {
