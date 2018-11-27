@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import AlbumComponent from './AlbumComponent';
 
+// Another option would be to eject react and import electron as a plugin in webconfig
+// https://stackoverflow.com/questions/44008674/how-to-import-the-electron-ipcrenderer-in-a-react-webpack-2-setup
+const { ipcRenderer } = window.require('electron');
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +34,23 @@ class App extends Component {
                 },
             ],
         };
+    }
+
+    componentDidMount() {
+        ipcRenderer.on('asynchronous-reply', (event, arg) => {
+            this.setState({
+                context: [
+                    {
+                        albumTitle: 'Bananas',
+                        song: 'Monkey',
+                        url: 'https://via.placeholder.com/40',
+                    },
+                ],
+            });
+            console.log(arg); // prints "ping"
+            event.sender.send('asynchronous-message', 'pong');
+        });
+        console.log('component did mount');
     }
 
     render() {
