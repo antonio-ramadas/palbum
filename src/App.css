@@ -38,6 +38,10 @@ table {
     color: #00B4CC;
 }
 
+.searchTerm:hover {
+    cursor: text;
+}
+
 .searchButton {
     right: 3px;
     width: 40px;

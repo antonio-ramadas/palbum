@@ -46,6 +46,8 @@ class App extends Component {
             ));
         });
 
+        // Search bar adapted from: https://codepen.io/huange/pen/rbqsD
+        // Table adapted from: https://stackoverflow.com/a/17029347
         return (
             <>
                 <div className="search">
