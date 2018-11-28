@@ -72,7 +72,7 @@ class App extends Component {
         return (
             <>
                 <div className="search">
-                    <input type="text" className="searchTerm" placeholder="What do you want to hear?"/>
+                    <input type="text" className="searchTerm" placeholder="What do you want to hear?" autoFocus={true}/>
                     <button type="submit" className="searchButton">
                         <span role="img" aria-label="Search emoji">&#128269;</span>
                     </button>
