@@ -7,6 +7,13 @@ const Authentication = require('./authentication');
 
 const authentication = new Authentication();
 let mb;
+const data = [
+    {
+        albumTitle: 'Bananas',
+        song: 'Monkey',
+        url: 'https://via.placeholder.com/40',
+    },
+];
 
 function authenticate() {
     return authentication.authenticate();
@@ -35,14 +42,11 @@ function createTray() {
 }
 
 function setIpc() {
-    ipcMain.on('asynchronous-message', (event, arg) => {
-        console.log(arg); // prints "pong"
+    ipcMain.on('get-data', (event, arg) => {
+        event.sender.send('update-data', data);
     });
 
-    setTimeout(() => {
-        console.log('message sent');
-        mb.window.webContents.send('asynchronous-reply', 'ping');
-    }, 3000);
+    mb.window.webContents.send('update-data', data);
 }
 
 app.on('ready', () => {
@@ -56,4 +60,5 @@ app.on('ready', () => {
 
 // To prevent the login window when closed to quit the application
 // https://github.com/electron/electron/blob/master/docs/api/app.md#event-window-all-closed
-app.on('window-all-closed', () => {});
+app.on('window-all-closed', () => {
+});

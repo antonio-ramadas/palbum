@@ -33,24 +33,35 @@ class App extends Component {
                     url: 'https://via.placeholder.com/40',
                 },
             ],
+            isListeningToIpc: false,
         };
+
+        this.updateDataFromIpc = this.updateDataFromIpc.bind(this);
+    }
+
+    updateDataFromIpc(event, arg) {
+        this.setState({
+            context: arg,
+        });
     }
 
     componentDidMount() {
-        ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        if (!this.state.isListeningToIpc) {
+            ipcRenderer.on('update-data', this.updateDataFromIpc);
+
+            ipcRenderer.send('get-data');
+
             this.setState({
-                context: [
-                    {
-                        albumTitle: 'Bananas',
-                        song: 'Monkey',
-                        url: 'https://via.placeholder.com/40',
-                    },
-                ],
+                isListeningToIpc: true,
             });
-            console.log(arg); // prints "ping"
-            event.sender.send('asynchronous-message', 'pong');
-        });
-        console.log('component did mount');
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.state.isListeningToIpc) {
+            ipcRenderer.removeListener('update-data', this.updateDataFromIpc);
+            // No need to update to not listening, because the state will be lost
+        }
     }
 
     render() {
