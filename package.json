@@ -27,6 +27,7 @@
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",
     "spotify-authentication": "0.3.0",
+    "spotify-context-history": "^0.2.0",
     "spotify-web-api-node": "^4.0.0"
   },
   "browserslist": [

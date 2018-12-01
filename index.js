@@ -4,16 +4,10 @@ const {
 const menubar = require('menubar');
 const path = require('path');
 const Authentication = require('./authentication');
+const spotifyContext = require('./spotifyContext');
 
 const authentication = new Authentication();
 let mb;
-const data = [
-    {
-        albumTitle: 'Bananas',
-        song: 'Monkey',
-        url: 'https://via.placeholder.com/40',
-    },
-];
 
 function authenticate() {
     return authentication.authenticate();
@@ -25,6 +19,16 @@ function createTray() {
         icon: path.join(__dirname, 'resources/icons/PablumTemplate.png'),
         tooltip: 'Resume playing Spotify back where you left off',
         preloadWindow: true,
+    });
+
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Quit', click: () => app.quit() },
+    ]);
+
+    mb.tray.on('right-click', () => {
+        // Only works on macOS and Windows
+        // https://electronjs.org/docs/api/tray#traypopupcontextmenumenu-position-macos-windows
+        mb.tray.popUpContextMenu(contextMenu);
     });
 
     const gs = globalShortcut.register('CommandOrControl+M', () => {
@@ -43,10 +47,12 @@ function createTray() {
 
 function setIpc() {
     ipcMain.on('get-data', (event, arg) => {
-        event.sender.send('update-data', data);
+        spotifyContext.getUpdatedContextHistory()
+            .then(data => event.sender.send('update-data', data));
     });
 
-    mb.window.webContents.send('update-data', data);
+    spotifyContext.getUpdatedContextHistory()
+        .then(data => mb.window.webContents.send('update-data', data));
 }
 
 app.on('ready', () => {

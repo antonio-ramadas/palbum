@@ -2,6 +2,7 @@ const SpotifyAuthentication = require('spotify-authentication');
 const Store = require('electron-store');
 const http = require('http');
 const { BrowserWindow } = require('electron');
+const spotifyContext = require('./spotifyContext');
 
 const spotifyAuthentication = new SpotifyAuthentication();
 let window;
@@ -48,6 +49,7 @@ class Authentication {
 
     setAccessToken(res) {
         this.store.set('accessToken', res.access_token);
+        spotifyContext.setAccessToken(res.access_token);
 
         // REVIEW: Should the access token be updated in the background constantly?
         setTimeout(this.updateAccessToken.bind(this), (res.expires_in - 5) * 1000);

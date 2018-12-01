@@ -11,28 +11,7 @@ class App extends Component {
         super(props);
 
         this.state = {
-            context: [
-                {
-                    albumTitle: 'Bananas',
-                    song: 'Monkey',
-                    url: 'https://via.placeholder.com/40',
-                },
-                {
-                    albumTitle: 'Apple',
-                    song: 'Steve Jobs',
-                    url: 'https://via.placeholder.com/40',
-                },
-                {
-                    albumTitle: 'Tomato',
-                    song: 'Timer',
-                    url: 'https://via.placeholder.com/40',
-                },
-                {
-                    albumTitle: 'Grapes',
-                    song: 'Egypt',
-                    url: 'https://via.placeholder.com/40',
-                },
-            ],
+            context: [],
             isListeningToIpc: false,
         };
 
@@ -40,6 +19,7 @@ class App extends Component {
     }
 
     updateDataFromIpc(event, arg) {
+        console.log(arg);
         this.setState({
             context: arg,
         });
@@ -68,12 +48,14 @@ class App extends Component {
         const table = [];
 
         this.state.context.forEach((element) => {
+            const artists = Object.values(element.track.artists).map(val => val.name);
+
             table.push((
                 <AlbumComponent
-                    key={element.albumTitle}
-                    albumTitle={element.albumTitle}
-                    song={element.song}
-                    url={element.url}
+                    key={element.context.id + element.track.id}
+                    albumTitle={element.context.name}
+                    song={`${artists.join(', ')} - ${element.track.name}`}
+                    url={element.context.images[0].url}
                 />
             ));
         });
