@@ -19,7 +19,6 @@ class App extends Component {
     }
 
     updateDataFromIpc(event, arg) {
-        console.log(arg);
         this.setState({
             context: arg,
         });
@@ -56,6 +55,7 @@ class App extends Component {
                     albumTitle={element.context.name}
                     song={`${artists.join(', ')} - ${element.track.name}`}
                     url={element.context.images[0].url}
+                    onClick={() => ipcRenderer.send('play', element.context.uri)}
                 />
             ));
         });

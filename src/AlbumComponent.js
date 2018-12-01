@@ -4,7 +4,7 @@ import './AlbumComponent.css';
 class AlbumComponent extends Component {
     render() {
         return (
-            <tr>
+            <tr onClick={() => this.props.onClick()}>
                 <td className="img-cell">
                     <img src={this.props.url} alt={`${this.props.albumTitle}'s Icon`}/>
                 </td>

@@ -45,13 +45,34 @@ function createTray() {
     }
 }
 
+function compare(lhs, rhs) {
+    if (lhs < rhs) {
+        return -1;
+    } if (rhs < lhs) {
+        return 1;
+    }
+
+    return 0;
+}
+
+function getData() {
+    return spotifyContext.getUpdatedContextHistory()
+        .then(data => data.sort((lhs, rhs) => compare(lhs.context.name, rhs.context.name)))
+        .catch(() => console.warn('Failed to retrieve Spotify context history'));
+}
+
 function setIpc() {
     ipcMain.on('get-data', (event, arg) => {
-        spotifyContext.getUpdatedContextHistory()
+        getData()
             .then(data => event.sender.send('update-data', data));
     });
 
-    spotifyContext.getUpdatedContextHistory()
+    ipcMain.on('play', (event, arg) => {
+        spotifyContext.play(arg)
+            .catch(() => console.error(`Failed to play: ${arg}`));
+    });
+
+    getData()
         .then(data => mb.window.webContents.send('update-data', data));
 }
 
@@ -60,11 +81,14 @@ app.on('ready', () => {
         .then(() => {
             createTray();
             setIpc();
+
+            // Update data every 10 seconds
+            setInterval(() => spotifyContext.getUpdatedContextHistory()
+                .then(data => mb.window.webContents.send('update-data', data)), 10000);
         })
         .catch(console.error);
 });
 
 // To prevent the login window when closed to quit the application
 // https://github.com/electron/electron/blob/master/docs/api/app.md#event-window-all-closed
-app.on('window-all-closed', () => {
-});
+app.on('window-all-closed', () => {});
