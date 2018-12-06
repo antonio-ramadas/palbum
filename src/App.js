@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Fuse from 'fuse.js';
 import './App.css';
 import AlbumComponent from './AlbumComponent';
 
@@ -12,16 +13,46 @@ class App extends Component {
 
         this.state = {
             context: [],
+            search: {
+                term: '',
+                results: [],
+            },
             isListeningToIpc: false,
         };
 
         this.updateDataFromIpc = this.updateDataFromIpc.bind(this);
     }
 
-    updateDataFromIpc(event, arg) {
+    search(term, ctx) {
+        const searchObj = this.state.search;
+
+        const searchTerm = term || searchObj.term;
+        const context = ctx || searchObj.context;
+
+        const searchOptions = {
+            keys: ['context.name', 'track.name'],
+            shouldSort: true,
+        };
+
+        const fuse = new Fuse(context, searchOptions);
+
+        let searchResults = fuse.search(searchTerm);
+
+        if (searchResults.length === 0 || searchTerm === '') {
+            searchResults = context;
+        }
+
         this.setState({
-            context: arg,
+            context,
+            search: {
+                term: searchTerm,
+                results: searchResults,
+            },
         });
+    }
+
+    updateDataFromIpc(event, arg) {
+        this.search(null, arg);
     }
 
     componentDidMount() {
@@ -46,7 +77,7 @@ class App extends Component {
     render() {
         const table = [];
 
-        this.state.context.forEach((element) => {
+        this.state.search.results.forEach((element) => {
             const artists = Object.values(element.track.artists).map(val => val.name);
 
             table.push((

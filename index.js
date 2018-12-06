@@ -77,16 +77,20 @@ function setIpc() {
 }
 
 app.on('ready', () => {
+    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
     authenticate()
+        .then(() => createTray())
+        .then(() => spotifyContext.update(Date.now() - oneWeek))
         .then(() => {
-            createTray();
             setIpc();
 
-            // Update data every 10 seconds
+            // Update data every 30 seconds
             setInterval(() => spotifyContext.getUpdatedContextHistory()
-                .then(data => mb.window.webContents.send('update-data', data)), 10000);
+                .then(data => mb.window.webContents.send('update-data', data))
+                .catch(err => console.error(err)), 30000);
         })
-        .catch(console.error);
+        .catch(err => console.error(err));
 });
 
 // To prevent the login window when closed to quit the application
