@@ -28,14 +28,21 @@ class App extends Component {
         const stateObj = this.state;
 
         if (event.key === 'Tab') {
-            const currentSelected = stateObj.currentSelected + (event.shiftKey ? 1 : -1);
+            const currentSelected = stateObj.currentSelected + (event.shiftKey ? -1 : 1);
 
-            this.setState({
-                currentSelected: Math.min(Math.max(0, currentSelected), stateObj.context.length),
-            });
+            this.updateSelection(currentSelected, stateObj.search.results.length - 1);
 
             event.preventDefault();
         }
+    }
+
+    updateSelection(newCurrentSelection, maxSize) {
+        // 0 <= currentSelected <= maximumSize
+        const maximumSize = Math.max(maxSize, 0);
+
+        this.setState({
+            currentSelected: Math.min(Math.max(0, newCurrentSelection), maximumSize),
+        });
     }
 
     search(term, ctx) {
@@ -57,6 +64,8 @@ class App extends Component {
         if (term === '' || searchTerm === '') {
             searchResults = context;
         }
+
+        this.updateSelection(stateObj.currentSelected, searchResults.length - 1);
 
         this.setState({
             context,
@@ -96,8 +105,9 @@ class App extends Component {
 
     render() {
         const table = [];
+        const stateObj = this.state;
 
-        this.state.search.results.forEach((element) => {
+        stateObj.search.results.forEach((element, index) => {
             const artists = Object.values(element.track.artists).map(val => val.name);
 
             table.push((
@@ -107,6 +117,7 @@ class App extends Component {
                     song={`${artists.join(', ')} - ${element.track.name}`}
                     url={element.context.images[0].url}
                     onClick={() => ipcRenderer.send('play', element.context.uri)}
+                    isSelected={index === stateObj.currentSelected}
                 />
             ));
         });

@@ -2,3 +2,7 @@
     width: 40px;
     height: 40px;
 }
+
+.selected {
+    background-color: #32d6d07a !important;
+}

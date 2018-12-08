@@ -7,7 +7,7 @@ td p, td h3 {
 }
 
 td:hover {
-    background-color: #32d6d07a;
+    /*background-color: #32d6d07a;*/
     cursor: pointer;
 }
 
