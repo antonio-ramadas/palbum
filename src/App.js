@@ -21,8 +21,6 @@ class App extends Component {
             isListeningToIpc: false,
         };
 
-        this.updateDataFromIpc = this.updateDataFromIpc.bind(this);
-
         this.searchInputRef = React.createRef();
     }
 
@@ -35,6 +33,10 @@ class App extends Component {
             this.updateSelection(currentSelected, stateObj.search.results.length - 1);
 
             event.preventDefault();
+        } else if (event.key === 'Enter') {
+            if (stateObj.currentSelected < stateObj.search.results.length) {
+                App.play(stateObj.search.results[stateObj.currentSelected].context.uri);
+            }
         }
     }
 
@@ -52,11 +54,18 @@ class App extends Component {
 
         const searchTerm = term || stateObj.search.term;
         const context = ctx || stateObj.context;
+        console.log('searchTerm: ', searchTerm);
 
         const searchOptions = {
-            keys: ['context.name', 'track.name'],
+            keys: [{
+                name: 'context.name',
+                weight: 0.7,
+            }, {
+                name: 'track.name',
+                weight: 0.3,
+            }],
             shouldSort: true,
-            threshold: 0.4,
+            threshold: 0.35,
         };
 
         const fuse = new Fuse(context, searchOptions);
@@ -79,12 +88,13 @@ class App extends Component {
     }
 
     updateDataFromIpc(event, arg) {
+        console.log('updateDataFromIpc: ', arg);
         this.search(null, arg);
     }
 
     componentDidMount() {
         if (!this.state.isListeningToIpc) {
-            ipcRenderer.on('update-data', this.updateDataFromIpc);
+            ipcRenderer.on('update-data', (event, arg) => this.updateDataFromIpc(event, arg));
 
             ipcRenderer.send('get-data');
 
@@ -98,9 +108,13 @@ class App extends Component {
 
     componentWillUnmount() {
         if (this.state.isListeningToIpc) {
-            ipcRenderer.removeListener('update-data', this.updateDataFromIpc);
+            ipcRenderer.removeListener('update-data', (event, arg) => this.updateDataFromIpc(event, arg));
             // No need to update to not listening, because the state will be lost
         }
+    }
+
+    static play(uri) {
+        ipcRenderer.send('play', uri);
     }
 
     handleInputChange(event) {
@@ -108,7 +122,7 @@ class App extends Component {
     }
 
     handleAlbumComponentClick(uri) {
-        ipcRenderer.send('play', uri);
+        App.play(uri);
         this.searchInputRef.current.focus();
     }
 
