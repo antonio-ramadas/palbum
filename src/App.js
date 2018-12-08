@@ -22,6 +22,8 @@ class App extends Component {
         };
 
         this.updateDataFromIpc = this.updateDataFromIpc.bind(this);
+
+        this.searchInputRef = React.createRef();
     }
 
     handleKeyDown(event) {
@@ -90,6 +92,8 @@ class App extends Component {
                 isListeningToIpc: true,
             });
         }
+
+        this.searchInputRef.current.focus();
     }
 
     componentWillUnmount() {
@@ -101,6 +105,11 @@ class App extends Component {
 
     handleInputChange(event) {
         this.search(event.target.value, null);
+    }
+
+    handleAlbumComponentClick(uri) {
+        ipcRenderer.send('play', uri);
+        this.searchInputRef.current.focus();
     }
 
     render() {
@@ -117,7 +126,7 @@ class App extends Component {
                     song={`${artists.join(', ')} - ${element.track.name}`}
                     url={element.context.images[0].url}
                     onMouseOver={() => this.setState({ currentSelected: index })}
-                    onClick={() => ipcRenderer.send('play', element.context.uri)}
+                    onClick={() => this.handleAlbumComponentClick(element.context.uri)}
                     isSelected={index === stateObj.currentSelected}
                 />
             ));
@@ -135,6 +144,7 @@ class App extends Component {
                         autoFocus={true}
                         onChange={event => this.handleInputChange(event)}
                         onKeyDown={event => this.handleKeyDown(event)}
+                        ref={this.searchInputRef}
                     />
                     <button
                         type="submit"
