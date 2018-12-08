@@ -24,21 +24,22 @@ class App extends Component {
     }
 
     search(term, ctx) {
-        const searchObj = this.state.search;
+        const stateObj = this.state;
 
-        const searchTerm = term || searchObj.term;
-        const context = ctx || searchObj.context;
+        const searchTerm = term || stateObj.search.term;
+        const context = ctx || stateObj.context;
 
         const searchOptions = {
             keys: ['context.name', 'track.name'],
             shouldSort: true,
+            threshold: 0.4,
         };
 
         const fuse = new Fuse(context, searchOptions);
 
         let searchResults = fuse.search(searchTerm);
 
-        if (searchResults.length === 0 || searchTerm === '') {
+        if (searchTerm === '') {
             searchResults = context;
         }
 
@@ -74,6 +75,10 @@ class App extends Component {
         }
     }
 
+    handleInputChange(event) {
+        this.search(event.target.value, null);
+    }
+
     render() {
         const table = [];
 
@@ -96,7 +101,13 @@ class App extends Component {
         return (
             <>
                 <div className="search">
-                    <input type="text" className="searchTerm" placeholder="What do you want to hear?" autoFocus={true}/>
+                    <input
+                        type="text"
+                        className="searchTerm"
+                        placeholder="What do you want to hear?"
+                        autoFocus={true}
+                        onChange={event => this.handleInputChange(event)}
+                    />
                     <button type="submit" className="searchButton">
                         <span role="img" aria-label="Search emoji">&#128269;</span>
                     </button>
