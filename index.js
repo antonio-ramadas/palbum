@@ -31,7 +31,7 @@ function createTray() {
         mb.tray.popUpContextMenu(contextMenu);
     });
 
-    const gs = globalShortcut.register('CommandOrControl+M', () => {
+    let gs = globalShortcut.register('CommandOrControl+M', () => {
         if (mb.window.isVisible()) {
             // https://github.com/electron/electron/issues/2640#issuecomment-136306916
             Menu.sendActionToFirstResponder('hide:');
@@ -42,6 +42,17 @@ function createTray() {
 
     if (!gs) {
         console.warn('Registration of the global shortcut to show/hide the window has failed.');
+    }
+
+    gs = globalShortcut.register('Esc', () => {
+        if (mb.window.isVisible()) {
+            // https://github.com/electron/electron/issues/2640#issuecomment-136306916
+            Menu.sendActionToFirstResponder('hide:');
+        }
+    });
+
+    if (!gs) {
+        console.warn('Registration of the global shortcut to hide the window has failed.');
     }
 }
 

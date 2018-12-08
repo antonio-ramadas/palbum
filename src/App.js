@@ -17,10 +17,25 @@ class App extends Component {
                 term: '',
                 results: [],
             },
+            currentSelected: 0,
             isListeningToIpc: false,
         };
 
         this.updateDataFromIpc = this.updateDataFromIpc.bind(this);
+    }
+
+    handleKeyDown(event) {
+        const stateObj = this.state;
+
+        if (event.key === 'Tab') {
+            const currentSelected = stateObj.currentSelected + (event.shiftKey ? 1 : -1);
+
+            this.setState({
+                currentSelected: Math.min(Math.max(0, currentSelected), stateObj.context.length),
+            });
+
+            event.preventDefault();
+        }
     }
 
     search(term, ctx) {
@@ -39,7 +54,7 @@ class App extends Component {
 
         let searchResults = fuse.search(searchTerm);
 
-        if (searchTerm === '') {
+        if (term === '' || searchTerm === '') {
             searchResults = context;
         }
 
@@ -107,6 +122,7 @@ class App extends Component {
                         placeholder="What do you want to hear?"
                         autoFocus={true}
                         onChange={event => this.handleInputChange(event)}
+                        onKeyDown={event => this.handleKeyDown(event)}
                     />
                     <button
                         type="submit"
