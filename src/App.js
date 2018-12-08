@@ -108,7 +108,11 @@ class App extends Component {
                         autoFocus={true}
                         onChange={event => this.handleInputChange(event)}
                     />
-                    <button type="submit" className="searchButton">
+                    <button
+                        type="submit"
+                        className="searchButton"
+                        tabIndex="-1"
+                    >
                         <span role="img" aria-label="Search emoji">&#128269;</span>
                     </button>
                 </div>
