@@ -116,6 +116,7 @@ class App extends Component {
                     albumTitle={element.context.name}
                     song={`${artists.join(', ')} - ${element.track.name}`}
                     url={element.context.images[0].url}
+                    onMouseOver={() => this.setState({ currentSelected: index })}
                     onClick={() => ipcRenderer.send('play', element.context.uri)}
                     isSelected={index === stateObj.currentSelected}
                 />

@@ -4,7 +4,11 @@ import './AlbumComponent.css';
 class AlbumComponent extends Component {
     render() {
         return (
-            <tr onClick={() => this.props.onClick()} className={this.props.isSelected ? 'selected' : null}>
+            <tr
+                onClick={() => this.props.onClick()}
+                className={this.props.isSelected ? 'selected' : null}
+                onMouseOver={() => this.props.onMouseOver()}
+            >
                 <td className="img-cell">
                     <img src={this.props.url} alt={`${this.props.albumTitle}'s Icon`}/>
                 </td>

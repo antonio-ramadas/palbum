@@ -3,6 +3,10 @@
     height: 40px;
 }
 
+/*
+I do not really endorse "!important" usage.
+TODO: Figure out a new solution
+*/
 .selected {
     background-color: #32d6d07a !important;
 }
