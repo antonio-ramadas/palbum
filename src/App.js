@@ -37,6 +37,10 @@ class App extends Component {
             if (stateObj.currentSelected < stateObj.search.results.length) {
                 App.play(stateObj.search.results[stateObj.currentSelected].context.uri);
             }
+        } else if (event.key === 'ArrowUp') {
+            this.updateSelection(stateObj.currentSelected - 1, stateObj.search.results.length - 1);
+        } else if (event.key === 'ArrowDown') {
+            this.updateSelection(stateObj.currentSelected + 1, stateObj.search.results.length - 1);
         }
     }
 
