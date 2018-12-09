@@ -1,3 +1,5 @@
+build/
+
 ### React ###
 # dependencies
 node_modules

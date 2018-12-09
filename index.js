@@ -3,6 +3,7 @@ const {
 } = require('electron');
 const menubar = require('menubar');
 const path = require('path');
+const URL = require('url');
 const Authentication = require('./authentication');
 const spotifyContext = require('./spotifyContext');
 
@@ -14,8 +15,14 @@ function authenticate() {
 }
 
 function createTray() {
+    const startUrl = process.env.ELECTRON_START_URL || URL.format({
+        pathname: path.join(__dirname, 'build/index.html'),
+        protocol: 'file:',
+        slashes: true,
+    });
+
     mb = menubar({
-        index: 'http://localhost:3000/', // https://via.placeholder.com/400',
+        index: startUrl, // 'http://localhost:3000/', // https://via.placeholder.com/400',
         icon: path.join(__dirname, 'resources/icons/PablumTemplate.png'),
         tooltip: 'Resume playing Spotify back where you left off',
         preloadWindow: true,
