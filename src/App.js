@@ -54,7 +54,6 @@ class App extends Component {
 
         const searchTerm = term || stateObj.search.term;
         const context = ctx || stateObj.context;
-        console.log('searchTerm: ', searchTerm);
 
         const searchOptions = {
             keys: [{
@@ -88,7 +87,6 @@ class App extends Component {
     }
 
     updateDataFromIpc(event, arg) {
-        console.log('updateDataFromIpc: ', arg);
         this.search(null, arg);
     }
 
