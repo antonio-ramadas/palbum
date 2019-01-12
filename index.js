@@ -4,6 +4,7 @@ const {
 const menubar = require('menubar');
 const path = require('path');
 const URL = require('url');
+const isDev = require('electron-is-dev');
 const Authentication = require('./authentication');
 const spotifyContext = require('./spotifyContext');
 
@@ -15,7 +16,7 @@ function authenticate() {
 }
 
 function createTray() {
-    const startUrl = process.env.ELECTRON_START_URL || URL.format({
+    const startUrl = isDev ? 'http://localhost:3000' : URL.format({
         pathname: path.join(__dirname, 'build/index.html'),
         protocol: 'file:',
         slashes: true,
@@ -66,7 +67,8 @@ function createTray() {
 function compare(lhs, rhs) {
     if (lhs < rhs) {
         return -1;
-    } if (rhs < lhs) {
+    }
+    if (rhs < lhs) {
         return 1;
     }
 

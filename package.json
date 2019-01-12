@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "electron": "^3.0.10",
+    "electron-is-dev": "^1.0.1",
     "electron-store": "^2.0.0",
     "fuse.js": "^3.3.0",
     "menubar": "^5.2.3",
