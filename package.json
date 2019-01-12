@@ -13,7 +13,7 @@
         "start": "npm run start-dev",
         "start-dev": "concurrently \"BROWSER=none npm run react\" \"wait-on http://localhost:3000 && npm run electron\"",
         "react": "react-scripts start",
-        "electron": "electron .",
+        "electron": "electron server/",
         "test": "react-scripts test",
         "lint": "node_modules/.bin/eslint .",
         "postinstall": "chmod +x postinstall.sh && sh postinstall.sh",
