@@ -1,7 +1,7 @@
 const SpotifyAuthentication = require('spotify-authentication');
 const Store = require('electron-store');
 const http = require('http');
-const { BrowserWindow } = require('electron');
+const { BrowserWindow } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const spotifyContext = require('./spotifyContext');
 
 const spotifyAuthentication = new SpotifyAuthentication();

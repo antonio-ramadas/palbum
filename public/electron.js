@@ -1,6 +1,6 @@
 const {
     app, ipcMain, globalShortcut, Menu,
-} = require('electron');
+} = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const menubar = require('menubar');
 const path = require('path');
 const URL = require('url');
@@ -17,14 +17,14 @@ function authenticate() {
 
 function createTray() {
     const startUrl = isDev ? 'http://localhost:3000' : URL.format({
-        pathname: path.join(__dirname, 'build/index.html'),
+        pathname: path.join(__dirname, '../build/index.html'),
         protocol: 'file:',
         slashes: true,
     });
 
     mb = menubar({
-        index: startUrl, // 'http://localhost:3000/', // https://via.placeholder.com/400',
-        icon: path.join(__dirname, 'resources/icons/PablumTemplate.png'),
+        index: startUrl, // https://via.placeholder.com/400',
+        icon: path.join(__dirname, 'tray-icons/PablumTemplate.png'),
         tooltip: 'Resume playing Spotify back where you left off',
         preloadWindow: true,
     });
@@ -64,18 +64,17 @@ function createTray() {
     }
 }
 
-function compare(lhs, rhs) {
-    if (lhs < rhs) {
-        return -1;
-    }
-    if (rhs < lhs) {
-        return 1;
-    }
-
-    return 0;
-}
-
 function getData() {
+    const compare = (lhs, rhs) => {
+        if (lhs < rhs) {
+            return -1;
+        }
+        if (rhs < lhs) {
+            return 1;
+        }
+        return 0;
+    };
+
     return spotifyContext.getUpdatedContextHistory()
         .then(data => data.sort((lhs, rhs) => compare(lhs.context.name, rhs.context.name)))
         .catch(() => console.warn('Failed to retrieve Spotify context history'));

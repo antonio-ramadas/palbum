@@ -1,27 +1,32 @@
 {
     "name": "palbum",
     "version": "0.1.0",
-    "author": "António Ramadas",
+    "author": {
+        "name": "António Ramadas",
+        "url": "https://github.com/antonio-ramadas"
+    },
     "license": "MIT",
     "keywords": [
         "spotify"
     ],
     "homepage": "./",
+    "main": "public/electron.js",
     "repository": "github:antonio-ramadas/palbum",
     "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
     "scripts": {
         "start": "npm run start-dev",
         "start-dev": "concurrently \"BROWSER=none npm run react\" \"wait-on http://localhost:3000 && npm run electron\"",
         "react": "react-scripts start",
-        "electron": "electron server/",
+        "electron": "electron public/electron.js",
         "test": "react-scripts test",
         "lint": "node_modules/.bin/eslint .",
-        "postinstall": "chmod +x postinstall.sh && sh postinstall.sh",
+        "postinstall": "chmod +x postinstall.sh && sh postinstall.sh && electron-builder install-app-deps",
         "build": "react-scripts build",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "preelectron-pack": "npm run build",
+        "electron-pack": "electron-builder -c.extraMetadata.main=build/electron.js"
     },
     "dependencies": {
-        "electron": "^3.0.10",
         "electron-is-dev": "^1.0.1",
         "electron-store": "^2.0.0",
         "fuse.js": "^3.3.0",
@@ -33,15 +38,23 @@
         "spotify-context-history": "^0.3.1",
         "spotify-web-api-node": "^4.0.0"
     },
+    "devDependencies": {
+        "electron": "^3.0.10",
+        "concurrently": "^4.1.0",
+        "electron-builder": "^20.38.4",
+        "eslint-config-airbnb": "^17.1.0",
+        "wait-on": "^3.2.0"
+    },
     "browserslist": [
         ">0.2%",
         "not dead",
         "not ie <= 11",
         "not op_mini all"
     ],
-    "devDependencies": {
-        "concurrently": "^4.1.0",
-        "eslint-config-airbnb": "^17.1.0",
-        "wait-on": "^3.2.0"
+    "build": {
+        "appId": "antonio-ramadas.palbum",
+        "mac": {
+            "category": "public.app-category.music"
+        }
     }
 }
