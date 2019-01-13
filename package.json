@@ -14,15 +14,20 @@
     "repository": "github:antonio-ramadas/palbum",
     "description": "Resume playing Spotify albums/playlists (no long start from the beginning)",
     "scripts": {
+        "postinstall": "chmod +x postinstall.sh && sh postinstall.sh && electron-builder install-app-deps",
+
+        "lint": "node_modules/.bin/eslint .",
+
         "start": "npm run start-dev",
         "start-dev": "concurrently \"BROWSER=none npm run react\" \"wait-on http://localhost:3000 && npm run electron\"",
-        "react": "react-scripts start",
+
         "electron": "electron public/electron.js",
+
+        "react": "react-scripts start",
         "test": "react-scripts test",
-        "lint": "node_modules/.bin/eslint .",
-        "postinstall": "chmod +x postinstall.sh && sh postinstall.sh && electron-builder install-app-deps",
         "build": "react-scripts build",
         "eject": "react-scripts eject",
+
         "preelectron-pack": "npm run build",
         "electron-pack": "electron-builder -c.extraMetadata.main=build/electron.js"
     },
@@ -53,8 +58,16 @@
     ],
     "build": {
         "appId": "antonio-ramadas.palbum",
+        "productName": "Palbum",
         "mac": {
+            "icon": "build/icon.png",
             "category": "public.app-category.music"
+        },
+        "win": {
+            "icon": "build/icon.png"
+        },
+        "linux": {
+            "icon": "build/icon.png"
         }
     }
 }
