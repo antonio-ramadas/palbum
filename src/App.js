@@ -39,8 +39,10 @@ class App extends Component {
             }
         } else if (event.key === 'ArrowUp') {
             this.updateSelection(stateObj.currentSelected - 1, stateObj.search.results.length - 1);
+            event.preventDefault();
         } else if (event.key === 'ArrowDown') {
             this.updateSelection(stateObj.currentSelected + 1, stateObj.search.results.length - 1);
+            event.preventDefault();
         }
     }
 
