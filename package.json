@@ -60,13 +60,14 @@
         "appId": "antonio-ramadas.palbum",
         "productName": "Palbum",
         "mac": {
-            "icon": "build/icon.png",
-            "category": "public.app-category.music"
+            "category": "public.app-category.music",
+            "icon": "build/icon.png"
         },
         "win": {
             "icon": "build/icon.png"
         },
         "linux": {
+            "category": "Audio",
             "icon": "build/icon.png"
         }
     }
