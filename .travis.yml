@@ -6,6 +6,7 @@ before_cache:
 
 cache:
     directories:
+        - $HOME/.npm
         - node_modules
         - $HOME/.cache/electron
         - $HOME/.cache/electron-builder
@@ -14,7 +15,7 @@ matrix:
         - os: osx
           osx_image: xcode9.4
           language: node_js
-          node_js: "node"
+          node_js: "10"
           env:
               - ELECTRON_CACHE=$HOME/.cache/electron
               - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
@@ -28,10 +29,12 @@ jobs:
         - stage: test
           os: osx # Lint is only required in one OS (does not matter which one)
           language: node_js
+          install: npm ci
           script: npm run lint -s
 
         - stage: build
           if: branch = master
+          install: skip
           script:
               - |
                 if [ "$TRAVIS_OS_NAME" == "linux" ]; then
