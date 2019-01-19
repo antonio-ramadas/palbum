@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import './AlbumComponent.css';
 
 class AlbumComponent extends Component {

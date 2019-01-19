@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import Fuse from 'fuse.js';
 import './App.css';
 import AlbumComponent from './AlbumComponent';
