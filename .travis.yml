@@ -15,6 +15,7 @@ jobs:
     include:
         - stage: lint
           language: node_js
+          node_js: "10"
           install: npm ci
           script: npm run lint -s
 
@@ -26,6 +27,7 @@ jobs:
               - ELECTRON_CACHE=$HOME/.cache/electron
               - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
           language: node_js
+          node_js: "10"
           install: npm ci
           script: npm run electron-pack
 
