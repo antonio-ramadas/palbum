@@ -11,12 +11,11 @@ cache:
         - $HOME/.cache/electron
         - $HOME/.cache/electron-builder
 
-node_js: "10"
-
 jobs:
     include:
         - stage: lint
           language: node_js
+          node_js: "10"
           install: npm ci # Install node_modules and cache to use on later stages
           script: npm run lint -s
 
@@ -27,6 +26,7 @@ jobs:
               - ELECTRON_CACHE=$HOME/.cache/electron
               - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
           language: node_js
+          node_js: "10"
           install: skip
           script: npm run electron-build-unpacked
 
