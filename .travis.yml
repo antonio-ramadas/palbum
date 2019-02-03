@@ -20,7 +20,7 @@ jobs:
           install: npm ci
           script: npm run lint -s
 
-        - stage: build-macos
+        - stage: build
           os: osx
           osx_image: xcode9.4
           env:
@@ -31,7 +31,7 @@ jobs:
           install: npm ci
           script: npm run electron-build-unpacked
 
-        - stage: build-linux-windows
+        - stage: build
           os: linux
           services: docker
           language: generic
