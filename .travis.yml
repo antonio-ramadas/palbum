@@ -16,6 +16,7 @@ jobs:
         - stage: lint
           language: node_js
           node_js: "10"
+          env: CACHE_NAME=shared-cache
           install: npm ci # Install node_modules and cache to use on later stages
           script: npm run lint -s
 
@@ -25,6 +26,7 @@ jobs:
           env: # Cache electron-builder to be faster on later stages
               - ELECTRON_CACHE=$HOME/.cache/electron
               - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+              - CACHE_NAME=shared-cache
           language: node_js
           node_js: "10"
           install: skip
@@ -33,7 +35,8 @@ jobs:
         - stage: build-linux-windows
           os: linux
           services: docker
-          language: node_js
+          language: generic
+          env: CACHE_NAME=shared-cache
           install: skip
           script:
               - |
