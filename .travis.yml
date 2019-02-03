@@ -11,43 +11,35 @@ cache:
         - $HOME/.cache/electron
         - $HOME/.cache/electron-builder
 
+node_js: "10"
+
 jobs:
     include:
         - stage: lint
           language: node_js
-          node_js: "10"
-          install: npm ci
+          install: npm ci # Install node_modules and cache to use on later stages
           script: npm run lint -s
 
-        - stage: build
-          if: branch = master
+        - stage: build-macos
           os: osx
           osx_image: xcode9.4
-          env:
+          env: # Cache electron-builder to be faster on later stages
               - ELECTRON_CACHE=$HOME/.cache/electron
               - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
           language: node_js
-          node_js: "10"
-          install: npm ci
-          script: npm run electron-pack
+          install: skip
+          script: npm run electron-build-unpacked
 
-        - os: linux
+        - stage: build-linux-windows
+          os: linux
           services: docker
           language: generic
           install: skip
           script:
               - |
-                env
                 docker run --rm \
-                  --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
                   -v ${PWD}:/project \
                   -v ~/.cache/electron:/root/.cache/electron \
                   -v ~/.cache/electron-builder:/root/.cache/electron-builder \
                   electronuserland/builder:wine \
-                  /bin/bash -c "npm ci && npm run electron-pack -- --linux --win"
-
-          # TODO add deployment/publish state
-        #- stage: deploy
-          #if: branch = master AND type != pull_request # build only on master if it is not a Pull Request
-          #script: skip # Prevent running the default test script
-          #deploy: # TODO deploy to GitHub
+                  /bin/bash -c "npm run electron-build-unpacked -- --linux --win"
