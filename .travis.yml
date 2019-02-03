@@ -33,7 +33,7 @@ jobs:
         - stage: build-linux-windows
           os: linux
           services: docker
-          language: generic
+          language: node_js
           install: skip
           script:
               - |
@@ -42,4 +42,4 @@ jobs:
                   -v ~/.cache/electron:/root/.cache/electron \
                   -v ~/.cache/electron-builder:/root/.cache/electron-builder \
                   electronuserland/builder:wine \
-                  /bin/bash -c "pwd && ls && ls node_modules | grep react && pm run electron-build-unpacked -- --linux --win"
+                  /bin/bash -c "npm run electron-build-unpacked -- --linux --win"
