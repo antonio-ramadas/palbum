@@ -41,8 +41,13 @@ function createTray() {
 
     let gs = globalShortcut.register('CommandOrControl+M', () => {
         if (mb.window.isVisible()) {
-            // https://github.com/electron/electron/issues/2640#issuecomment-136306916
-            Menu.sendActionToFirstResponder('hide:');
+            if (process.platform === 'darwin') {
+                // On mac, return focus to the last application
+                // https://github.com/electron/electron/issues/2640#issuecomment-136306916
+                Menu.sendActionToFirstResponder('hide:');
+            } else {
+                mb.hideWindow();
+            }
         } else {
             mb.showWindow();
         }
