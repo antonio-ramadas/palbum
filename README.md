@@ -5,7 +5,9 @@
  - [x] Add list of albums/playlists
  - [x] Add shortcuts (global, arrows, selection, search)
  - [ ] Improve [README.md](readme.md)
- - [ ] Add settings?
+ - [x] Add settings?
+ - [ ] Start at login
+ - [ ] Dark Mode
  - [ ] Add website
  - [x] Build
  - [ ] Advertise ([Product Hunt](https://www.producthunt.com), [Hacker News](https://news.ycombinator.com))
