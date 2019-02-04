@@ -95,23 +95,32 @@ function setIpc() {
         .then(data => mb.window.webContents.send('update-data', data));
 }
 
-app.on('ready', () => {
-    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+// If there is another instance running, then quit this new one
+if (!app.requestSingleInstanceLock()) {
+    app.quit();
+} else {
+    app.on('second-instance', () => mb && mb.showWindow());
 
-    authenticate()
-        .then(() => createTray())
-        .then(() => spotifyContext.update(Date.now() - oneWeek))
-        .then(() => {
-            setIpc();
+    app.on('ready', () => {
+        const oneWeek = 7 * 24 * 60 * 60 * 1000;
 
-            // Update data every 30 seconds
-            setInterval(() => spotifyContext.getUpdatedContextHistory()
-                .then(data => mb.window.webContents.send('update-data', data))
-                .catch(err => console.error(err)), 30000);
-        })
-        .catch(err => console.error(err));
-});
+        authenticate()
+            .catch(() => app.quit())
+            .then(() => createTray())
+            .then(() => spotifyContext.update(Date.now() - oneWeek))
+            .then(() => {
+                setIpc();
 
-// To prevent the login window when closed to quit the application
-// https://github.com/electron/electron/blob/master/docs/api/app.md#event-window-all-closed
-app.on('window-all-closed', () => {});
+                // Update data every 30 seconds
+                setInterval(() => spotifyContext.getUpdatedContextHistory()
+                    .then(data => mb.window.webContents.send('update-data', data))
+                    .catch(err => console.error(err)), 30000);
+            })
+            .then(() => mb.showWindow())
+            .catch(err => console.error(err));
+    });
+
+    // To prevent the login window when closed to quit the application
+    // https://github.com/electron/electron/blob/master/docs/api/app.md#event-window-all-closed
+    app.on('window-all-closed', () => {});
+}

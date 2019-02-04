@@ -35,7 +35,11 @@ class Authentication {
                     this.getRefreshToken(codeRgx[1])
                         .then(resolve, reject);
                 }
-            }).listen(1995);
+            });
+
+            server.on('error', reject);
+
+            server.listen(1995);
         });
     }
 
