@@ -15,6 +15,16 @@ function authenticate() {
     return authentication.authenticate();
 }
 
+function hideWindow() {
+    if (process.platform === 'darwin') {
+        // On mac, return focus to the last application
+        // https://github.com/electron/electron/issues/2640#issuecomment-136306916
+        Menu.sendActionToFirstResponder('hide:');
+    } else {
+        mb.hideWindow();
+    }
+}
+
 function createTray() {
     const startUrl = isDev ? 'http://localhost:3000' : URL.format({
         pathname: path.join(__dirname, '../build/index.html'),
@@ -41,13 +51,7 @@ function createTray() {
 
     let gs = globalShortcut.register('CommandOrControl+M', () => {
         if (mb.window.isVisible()) {
-            if (process.platform === 'darwin') {
-                // On mac, return focus to the last application
-                // https://github.com/electron/electron/issues/2640#issuecomment-136306916
-                Menu.sendActionToFirstResponder('hide:');
-            } else {
-                mb.hideWindow();
-            }
+            hideWindow();
         } else {
             mb.showWindow();
         }
@@ -59,8 +63,7 @@ function createTray() {
 
     gs = globalShortcut.register('Esc', () => {
         if (mb.window.isVisible()) {
-            // https://github.com/electron/electron/issues/2640#issuecomment-136306916
-            Menu.sendActionToFirstResponder('hide:');
+            hideWindow();
         }
     });
 
