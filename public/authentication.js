@@ -1,21 +1,14 @@
 const SpotifyAuthentication = require('spotify-authentication');
-const Store = require('electron-store');
 const http = require('http');
 const { BrowserWindow } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const spotifyContext = require('./spotifyContext');
+const store = require('./store');
 
 const spotifyAuthentication = new SpotifyAuthentication();
 let window;
 
 class Authentication {
     constructor() {
-        this.store = new Store(/* {
-            defaults: {
-                accessToken: '',
-                refreshToken: '',
-            },
-        } */);
-
         spotifyAuthentication.setHost('https://spotify-proxy-oauth2.herokuapp.com/');
     }
 
@@ -46,13 +39,13 @@ class Authentication {
     getRefreshToken(code) {
         return spotifyAuthentication.authorizationCodeGrant(code)
             .then((res) => {
-                this.store.set('refreshToken', res.refresh_token);
+                store.set('refreshToken', res.refresh_token);
                 this.setAccessToken.bind(this)(res);
             });
     }
 
     setAccessToken(res) {
-        this.store.set('accessToken', res.access_token);
+        store.set('accessToken', res.access_token);
         spotifyContext.setAccessToken(res.access_token);
 
         // REVIEW: Should the access token be updated in the background constantly?
@@ -60,10 +53,10 @@ class Authentication {
     }
 
     updateAccessToken() {
-        return spotifyAuthentication.refreshAccessToken(this.store.get('refreshToken'))
+        return spotifyAuthentication.refreshAccessToken(store.get('refreshToken'))
             .then(this.setAccessToken.bind(this))
             .catch(() => {
-                this.store.delete('refreshToken');
+                store.delete('refreshToken');
                 return this.newAuthentication();
             });
     }
@@ -71,7 +64,7 @@ class Authentication {
     authenticate() {
         let f = this.newAuthentication;
 
-        if (this.store.has('refreshToken')) {
+        if (store.has('refreshToken')) {
             f = this.updateAccessToken;
         }
 
