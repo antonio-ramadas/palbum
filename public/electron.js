@@ -34,7 +34,7 @@ function createTray() {
     });
 
     mb = menubar({
-        index: startUrl, // https://via.placeholder.com/400',
+        index: startUrl,
         icon: path.join(__dirname, 'tray-icons/PablumTemplate.png'),
         tooltip: 'Resume playing Spotify back where you left off',
         preloadWindow: true,
@@ -96,7 +96,7 @@ function getData() {
 }
 
 function setIpc() {
-    ipcMain.on('get-data', (event, arg) => {
+    ipcMain.on('get-data', (event) => {
         getData()
             .then(data => event.sender.send('update-data', data));
     });
@@ -117,13 +117,16 @@ if (!app.requestSingleInstanceLock()) {
     app.on('second-instance', () => mb && mb.showWindow());
 
     app.on('ready', () => {
-        const oneWeek = 7 * 24 * 60 * 60 * 1000;
+        const oneWeek = 7 * 24 * 60 * 60 * 1000; // eslint-disable-line no-unused-vars
 
         authenticate()
             .catch(() => app.quit())
             .then(() => startupUtil.init())
             .then(() => createTray())
-            .then(() => spotifyContext.update(Date.now() - oneWeek))
+            // REVIEW: If Spotify lifts the restriction of only returning the most recent 50 tracks
+            //         then uncomment the following code or update the logic (instead of returning
+            //         1 week of tracks, return the most recent XXX tracks).
+            .then(() => spotifyContext.update(/* Date.now() - oneWeek */))
             .then(() => {
                 setIpc();
 
@@ -131,6 +134,13 @@ if (!app.requestSingleInstanceLock()) {
                 setInterval(() => spotifyContext.getUpdatedContextHistory()
                     .then(data => mb.window.webContents.send('update-data', data))
                     .catch(err => console.error(err)), 30000);
+
+                // The interval 30 seconds is not random. Spotify only adds songs to the recently
+                // played tracks if they are played for more than 30 seconds. Given that there is
+                // no hook from Spotify to let know when there are new updates, we poll the API
+                // every 30 seconds.
+                // Check the following link for more information:
+                // https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/
             })
             .then(() => mb.showWindow())
             .catch(err => console.error(err));

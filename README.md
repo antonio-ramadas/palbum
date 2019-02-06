@@ -9,8 +9,10 @@
  - [x] Start at login
  - [ ] Dark Mode
  - [ ] Fix TODOs
+ - [ ] Refactor
  - [ ] Add website
  - [x] Build
+ - [ ] GitHub release
  - [ ] Advertise ([Product Hunt](https://www.producthunt.com), [Hacker News](https://news.ycombinator.com))
 
 ## :beetle: Known issues
@@ -24,6 +26,7 @@
  - Missing auto-updater. I haven't done this, because it is required a paid developer account. (If you know a way, share it!)
  - I like the UX, but not so much about the UI. I can think of some tweaks about HTML and CSS positioning, but I think the colors play a bigger role here.
  - The icon on Windows may look invisible. The dock by default is dark and the app icon is dark.
+ - Error handling is hidden from the user. You can see some `console.warn()` and `console.error()` spread around the code. Arguably, all outputs should be shown, but some probably should like when authentication fails.
 
 ## :raised_hands: Acknowledgments
 
