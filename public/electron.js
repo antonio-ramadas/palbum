@@ -142,7 +142,12 @@ if (!app.requestSingleInstanceLock()) {
                 // Check the following link for more information:
                 // https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/
             })
-            .then(() => mb.showWindow())
+            .then(() => {
+                // Show window only if the app did not start at login
+                if (startupUtil.shouldShowWindow()) {
+                    mb.showWindow();
+                }
+            })
             .catch(err => console.error(err));
     });
 
