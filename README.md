@@ -6,7 +6,7 @@
  - [x] Add shortcuts (global, arrows, selection, search)
  - [ ] Improve [README.md](readme.md)
  - [x] Add settings?
- - [ ] Start at login
+ - [x] Start at login
  - [ ] Dark Mode
  - [ ] Fix TODOs
  - [ ] Add website

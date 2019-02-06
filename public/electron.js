@@ -7,6 +7,7 @@ const URL = require('url');
 const isDev = require('electron-is-dev');
 const Authentication = require('./authentication');
 const spotifyContext = require('./spotifyContext');
+const startupUtil = require('./startup');
 
 const authentication = new Authentication();
 let mb;
@@ -39,11 +40,17 @@ function createTray() {
         preloadWindow: true,
     });
 
-    const contextMenu = Menu.buildFromTemplate([
-        { label: 'Quit', click: () => app.quit() },
-    ]);
-
     mb.tray.on('right-click', () => {
+        const contextMenu = Menu.buildFromTemplate([
+            {
+                label: 'Start at login',
+                type: 'checkbox',
+                checked: startupUtil.isOpenAtLogin(),
+                click: () => startupUtil.toggleOpenAtLogin(),
+            },
+            { label: 'Quit', role: 'quit' },
+        ]);
+
         // Only works on macOS and Windows
         // https://electronjs.org/docs/api/tray#traypopupcontextmenumenu-position-macos-windows
         mb.tray.popUpContextMenu(contextMenu);
@@ -114,6 +121,7 @@ if (!app.requestSingleInstanceLock()) {
 
         authenticate()
             .catch(() => app.quit())
+            .then(() => startupUtil.init())
             .then(() => createTray())
             .then(() => spotifyContext.update(Date.now() - oneWeek))
             .then(() => {

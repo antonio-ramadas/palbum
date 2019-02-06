@@ -29,6 +29,17 @@ function init() {
     }
 }
 
+function isOpenAtLogin() {
+    return app.getLoginItemSettings().openAtLogin;
+}
+
+function toggleOpenAtLogin() {
+    app.setLoginItemSettings({
+        openAtLogin: !isOpenAtLogin(),
+        openAsHidden: true,
+    });
+}
+
 /**
  * On windows and mac it is possible to open the application at login. By default, the application
  * is launched as hidden (does not show the tray/dock window). However, on mac, the users have
@@ -58,4 +69,6 @@ function shouldShowWindow() {
     return shouldShow;
 }
 
-module.exports = { init, shouldShowWindow };
+module.exports = {
+    init, shouldShowWindow, isOpenAtLogin, toggleOpenAtLogin,
+};
