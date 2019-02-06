@@ -15,8 +15,9 @@
 
 ## :beetle: Known issues
  - Spotify access token is refreshed 5 seconds before the timeout. This can cause bad requests if the request is slow.
- - OS that are not Mac or Windows do not have a right-click event on the tray/dock icon. As such, the buttons to quit and control the if the application should launch at login is not shown.
-   - It is worth mentioning that the application opens at login by default and these users will not have an easy task to control this.
+ - OS that are not Mac or Windows (i.e., linux) do not have a right-click event on the tray/dock icon. As such, the buttons to quit and control the if the application should launch at login are not shown.
+   - ~~It is worth mentioning that the application opens at login by default and these users will not have an easy task to control this.~~
+ - OS that are not Mac or Windows (i.e., linux) do not have an auto-launch option. Check [_startup.js_](public/startup.js) for further information.
  - Project structure should be improved. All electron code lives in [_public/_](public).
  - Uninstalling/Removing the app may leave leftovers. The file created by [electron-store](https://www.npmjs.com/package/electron-store) is never deleted.
  - App bundle is too big for such tiny execution. Moving away from electron can lead to improvements, but let's first figure out the waste and cut it out.
