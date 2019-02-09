@@ -28,6 +28,9 @@
  - The icon on Windows may look invisible. The dock by default is dark and the app icon is dark.
  - Error handling is hidden from the user. You can see some `console.warn()` and `console.error()` spread around the code. Arguably, all outputs should be shown, but some probably should like when authentication fails.
 
+## :man_technologist: Project decisions
+ - Given the bulk size of the app, I try to cut down external packages that add little value, but sometimes carry several dependencies. Often they are safer, but it is also often the case that there is no need for this case. So, sometimes you can see code that does the same like other packages. However, if you do not agree with this in any place, please say so because I may have overlooked.
+
 ## :raised_hands: Acknowledgments
 
 Icon made by Freepik from [www.flaticon.com](https://www.flaticon.com/free-icon/musical-notes-symbols_11178#term=musical%20note&page=1&position=35)
