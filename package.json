@@ -64,7 +64,8 @@
         "productName": "Palbum",
         "mac": {
             "category": "public.app-category.music",
-            "icon": "build/icon.png"
+            "icon": "build/icon.png",
+            "darkModeSupport": true
         },
         "win": {
             "icon": "build/icon.png"

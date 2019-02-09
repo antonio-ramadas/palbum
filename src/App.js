@@ -98,13 +98,15 @@ class App extends Component {
 
     componentDidMount() {
         if (!this.state.isListeningToIpc) {
-            ipcRenderer.on('update-data', (event, arg) => this.updateDataFromIpc(event, arg));
-
-            ipcRenderer.send('get-data');
-
             this.setState({
                 isListeningToIpc: true,
             });
+
+            ipcRenderer.on('update-data', (event, arg) => this.updateDataFromIpc(event, arg));
+
+            ipcRenderer.on('dark-mode-state', (event, arg) => this.setState({ darkMode: arg }));
+
+            ipcRenderer.send('get-data');
         }
 
         this.searchInputRef.current.focus();
