@@ -32,11 +32,11 @@ function toggleSystem() {
     }
 }
 
-function matchMacOsDarkMode() {
+function toggleMacOsDarkMode() {
     // With `electron-builder`, macOs is the only OS that is possible to listen for dark mode
     // changes
     if (process.platform === 'darwin') {
-        shouldMatchMacOsDarkMode = true;
+        shouldMatchMacOsDarkMode = !shouldMatchMacOsDarkMode;
 
         isOn = systemPreferences.isDarkMode();
 
@@ -52,6 +52,10 @@ function isDarkMode() {
     return isOn;
 }
 
+function isMatchMacOsDarkMode() {
+    return shouldMatchMacOsDarkMode;
+}
+
 module.exports = {
-    init, isDarkMode, toggleUser, toggleSystem,
+    init, isDarkMode, toggleUser, toggleSystem, isMatchMacOsDarkMode, toggleMacOsDarkMode,
 };

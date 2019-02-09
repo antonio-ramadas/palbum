@@ -1,5 +1,5 @@
 const {
-    app, ipcMain, globalShortcut, Menu, systemPreferences,
+    app, ipcMain, globalShortcut, Menu, MenuItem, systemPreferences,
 } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const menubar = require('menubar');
 const path = require('path');
@@ -12,10 +12,6 @@ const darkMode = require('./darkMode');
 
 const authentication = new Authentication();
 let mb;
-
-function authenticate() {
-    return authentication.authenticate();
-}
 
 function hideWindow() {
     if (process.platform === 'darwin') {
@@ -49,8 +45,29 @@ function createTray() {
                 checked: startupUtil.isOpenAtLogin(),
                 click: () => startupUtil.toggleOpenAtLogin(),
             },
+            {
+                label: 'Dark Mode',
+                type: 'checkbox',
+                checked: darkMode.isDarkMode(),
+                click: () => {
+                    darkMode.toggleUser();
+                    sendToFrontEndTheDarkModeState();
+                },
+            },
             { label: 'Quit', role: 'quit' },
         ]);
+
+        if (process.platform === 'darwin') {
+            contextMenu.insert(2, new MenuItem({
+                label: 'Match dark mode to macOS',
+                type: 'checkbox',
+                checked: darkMode.isMatchMacOsDarkMode(),
+                click: () => {
+                    darkMode.toggleMacOsDarkMode();
+                    sendToFrontEndTheDarkModeState();
+                },
+            }));
+        }
 
         // Only works on macOS and Windows
         // https://electronjs.org/docs/api/tray#traypopupcontextmenumenu-position-macos-windows
@@ -161,7 +178,7 @@ if (!app.requestSingleInstanceLock()) {
     app.on('ready', () => {
         const oneWeek = 7 * 24 * 60 * 60 * 1000; // eslint-disable-line no-unused-vars
 
-        authenticate()
+        authentication.authenticate()
             .catch(() => app.quit())
             .then(() => setUpApp())
             // REVIEW: If Spotify lifts the restriction of only returning the most recent 50 tracks
