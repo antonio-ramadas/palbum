@@ -1,5 +1,5 @@
 const {
-    app, ipcMain, globalShortcut, Menu,
+    app, ipcMain, globalShortcut, Menu, systemPreferences,
 } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const menubar = require('menubar');
 const path = require('path');
@@ -8,6 +8,7 @@ const isDev = require('electron-is-dev');
 const Authentication = require('./authentication');
 const spotifyContext = require('./spotifyContext');
 const startupUtil = require('./startup');
+const darkMode = require('./darkMode');
 
 const authentication = new Authentication();
 let mb;
@@ -55,6 +56,17 @@ function createTray() {
         // https://electronjs.org/docs/api/tray#traypopupcontextmenumenu-position-macos-windows
         mb.tray.popUpContextMenu(contextMenu);
     });
+}
+
+function sendToFrontEndTheDarkModeState() {
+    mb.window.webContents.send('dark-mode-state', darkMode.isDarkMode());
+}
+
+function setGlobalShortcuts() {
+    // This condition is a weak safety measure to guarantee that mb is instantiated
+    if (!mb) {
+        return;
+    }
 
     let gs = globalShortcut.register('CommandOrControl+M', () => {
         if (mb.window.isVisible()) {
@@ -76,6 +88,28 @@ function createTray() {
 
     if (!gs) {
         console.warn('Registration of the global shortcut to hide the window has failed.');
+    }
+
+    gs = globalShortcut.register('CommandOrControl+D', () => {
+        darkMode.toggleUser();
+        sendToFrontEndTheDarkModeState();
+    });
+
+    if (!gs) {
+        console.warn('Registration of the global shortcut to toggle dark mode has failed.');
+    }
+}
+
+function setSystemListeners() {
+    // https://electronjs.org/docs/tutorial/mojave-dark-mode-guide
+    if (process.platform === 'darwin') {
+        const appleDarkModeEventListener = 'AppleInterfaceThemeChangedNotification';
+
+        systemPreferences
+            .subscribeNotification(appleDarkModeEventListener, () => {
+                darkMode.toggleSystem();
+                sendToFrontEndTheDarkModeState();
+            });
     }
 }
 
@@ -110,6 +144,14 @@ function setIpc() {
         .then(data => mb.window.webContents.send('update-data', data));
 }
 
+function setUpApp() {
+    startupUtil.init();
+    darkMode.init();
+    createTray();
+    setGlobalShortcuts();
+    setSystemListeners();
+}
+
 // If there is another instance running, then quit this new one
 if (!app.requestSingleInstanceLock()) {
     app.quit();
@@ -121,8 +163,7 @@ if (!app.requestSingleInstanceLock()) {
 
         authenticate()
             .catch(() => app.quit())
-            .then(() => startupUtil.init())
-            .then(() => createTray())
+            .then(() => setUpApp())
             // REVIEW: If Spotify lifts the restriction of only returning the most recent 50 tracks
             //         then uncomment the following code or update the logic (instead of returning
             //         1 week of tracks, return the most recent XXX tracks).
