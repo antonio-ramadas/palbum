@@ -114,7 +114,8 @@ class App extends Component {
 
     componentWillUnmount() {
         if (this.state.isListeningToIpc) {
-            ipcRenderer.removeListener('update-data', (event, arg) => this.updateDataFromIpc(event, arg));
+            ipcRenderer.removeAllListeners('update-data');
+            ipcRenderer.removeAllListeners('dark-mode-state');
             // No need to update to not listening, because the state will be lost
         }
     }
