@@ -1,5 +1,18 @@
+table {
+    padding-top: 36px;
+    width: 100%;
+}
+
 table tr:nth-child(odd) {
-    background-color: #47c7d612;
+    background-color: rgba(71, 199, 214, 0.16);
+}
+
+table tr:nth-child(odd).dark-theme {
+    background-color: #2F4562;
+}
+
+table tr:nth-child(even).dark-theme {
+    background-color: #081B33;
 }
 
 td p, td h3 {
@@ -9,11 +22,6 @@ td p, td h3 {
 td:hover {
     /*background-color: #32d6d07a;*/
     cursor: pointer;
-}
-
-table {
-    padding-top: 36px;
-    width: 100%;
 }
 
 .search {
@@ -32,6 +40,19 @@ table {
     border-radius: 5px 0 0 5px;
     outline: none;
     color: #9DBFAF;
+}
+
+.searchTerm.dark-theme {
+    float: left;
+    width: 100%;
+    border: 3px solid #00B4CC;
+    padding: 5px;
+    height: 20px;
+    font-size: initial;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+    background-color: #081B33;
 }
 
 .searchTerm:focus{

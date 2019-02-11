@@ -2,6 +2,7 @@ import React, { Component } from 'react'; // eslint-disable-line import/no-extra
 import Fuse from 'fuse.js';
 import './App.css';
 import AlbumComponent from './AlbumComponent';
+import { getClassNameTheme } from './Util';
 
 // Another option would be to eject react and import electron as a plugin in webconfig
 // https://stackoverflow.com/questions/44008674/how-to-import-the-electron-ipcrenderer-in-a-react-webpack-2-setup
@@ -19,12 +20,14 @@ class App extends Component {
             },
             currentSelected: 0,
             isListeningToIpc: false,
+            darkMode: false,
         };
 
         this.searchInputRef = React.createRef();
     }
 
     handleKeyDown(event) {
+        console.log(event);
         const stateObj = this.state;
 
         if (event.key === 'Tab') {
@@ -73,12 +76,11 @@ class App extends Component {
             threshold: 0.35,
         };
 
-        const fuse = new Fuse(context, searchOptions);
+        let searchResults = context;
 
-        let searchResults = fuse.search(searchTerm);
-
-        if (term === '' || searchTerm === '') {
-            searchResults = context;
+        if (!(term === '' || searchTerm === '')) {
+            const fuse = new Fuse(context, searchOptions);
+            searchResults = fuse.search(searchTerm);
         }
 
         this.updateSelection(stateObj.currentSelected, searchResults.length - 1);
@@ -104,9 +106,13 @@ class App extends Component {
 
             ipcRenderer.on('update-data', (event, arg) => this.updateDataFromIpc(event, arg));
 
-            ipcRenderer.on('dark-mode-state', (event, arg) => this.setState({ darkMode: arg }));
+            ipcRenderer.on('dark-mode-state', (event, arg) => {
+                this.setState({ darkMode: arg });
+                document.body.className = getClassNameTheme(arg);
+            });
 
             ipcRenderer.send('get-data');
+            ipcRenderer.send('get-dark-mode-state');
         }
 
         this.searchInputRef.current.focus();
@@ -143,6 +149,7 @@ class App extends Component {
             table.push((
                 <AlbumComponent
                     key={element.context.id + element.track.id}
+                    theme={getClassNameTheme(stateObj.darkMode)}
                     albumTitle={element.context.name}
                     song={`${artists.join(', ')} - ${element.track.name}`}
                     url={element.context.images[0].url}
@@ -157,10 +164,10 @@ class App extends Component {
         // Table adapted from: https://stackoverflow.com/a/17029347
         return (
             <>
-                <div className="search">
+                <div className={`search ${getClassNameTheme(stateObj.darkMode)}`}>
                     <input
                         type="text"
-                        className="searchTerm"
+                        className={`searchTerm ${getClassNameTheme(stateObj.darkMode)}`}
                         placeholder="What do you want to hear?"
                         autoFocus={true}
                         onChange={event => this.handleInputChange(event)}
@@ -175,7 +182,7 @@ class App extends Component {
                         <span role="img" aria-label="Search emoji">&#128269;</span>
                     </button>
                 </div>
-                <table>
+                <table className={getClassNameTheme(stateObj.darkMode)}>
                     <tbody>
                         {table}
                     </tbody>

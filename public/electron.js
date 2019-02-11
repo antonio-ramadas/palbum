@@ -157,6 +157,10 @@ function setIpc() {
             .catch(() => console.error(`Failed to play: ${arg}`));
     });
 
+    ipcMain.on('get-dark-mode-state', () => sendToFrontEndTheDarkModeState());
+
+    sendToFrontEndTheDarkModeState();
+
     getData()
         .then(data => mb.window.webContents.send('update-data', data));
 }

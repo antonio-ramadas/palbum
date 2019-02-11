@@ -7,7 +7,7 @@
  - [ ] Improve [README.md](readme.md)
  - [x] Add settings?
  - [x] Start at login
- - [ ] Dark Mode
+ - [x] Dark Mode
  - [ ] Fix TODOs
  - [ ] Refactor
  - [ ] Add website
@@ -27,6 +27,7 @@
  - I like the UX, but not so much about the UI. I can think of some tweaks about HTML and CSS positioning, but I think the colors play a bigger role here.
  - The icon on Windows may look invisible. The dock by default is dark and the app icon is dark.
  - Error handling is hidden from the user. You can see some `console.warn()` and `console.error()` spread around the code. Arguably, all outputs should be shown, but some probably should like when authentication fails.
+ - Clicking outside the div with id `root` will disable the event listeners until the user clicks inside.
 
 ## :man_technologist: Project decisions
  - Given the bulk size of the app, I try to cut down external packages that add little value, but sometimes carry several dependencies. Often they are safer, but it is also often the case that there is no need for this case. So, sometimes you can see code that does the same like other packages. However, if you do not agree with this in any place, please say so because I may have overlooked.

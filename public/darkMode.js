@@ -20,7 +20,7 @@ function init() {
 }
 
 function toggleUser() {
-    isOn = !isOn;
+    isOn = !isDarkMode();
     shouldMatchMacOsDarkMode = false;
 
     save();

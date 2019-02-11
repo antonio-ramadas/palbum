@@ -27,10 +27,13 @@ class AlbumComponent extends Component {
     }
 
     render() {
+        const selected = this.props.isSelected ? 'selected' : '';
+        const { theme } = this.props;
+
         return (
             <tr
                 onClick={() => this.props.onClick()}
-                className={this.props.isSelected ? 'selected' : null}
+                className={`${selected} ${theme}`.trim()}
                 onMouseOver={() => this.props.onMouseOver()}
                 ref={this.rowRef}
             >
@@ -39,8 +42,8 @@ class AlbumComponent extends Component {
                 </td>
                 <td>
                     <div>
-                        <h3>{this.props.albumTitle}</h3>
-                        <p>{this.props.song}</p>
+                        <h3 className={theme}>{this.props.albumTitle}</h3>
+                        <p className={theme}>{this.props.song}</p>
                     </div>
                 </td>
             </tr>
