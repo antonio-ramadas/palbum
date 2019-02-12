@@ -1,6 +1,6 @@
+const { app, BrowserWindow } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const SpotifyAuthentication = require('spotify-authentication');
 const http = require('http');
-const { BrowserWindow } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const spotifyContext = require('./spotifyContext');
 const store = require('./store');
 
@@ -12,9 +12,35 @@ class Authentication {
         spotifyAuthentication.setHost('https://spotify-proxy-oauth2.herokuapp.com/');
     }
 
+    static hasRefreshToken() {
+        return store.has('refreshToken');
+    }
+
     newAuthentication() {
-        window = new BrowserWindow();
-        window.loadURL(spotifyAuthentication.createAuthorizeURL().href);
+        if (!window) {
+            window = new BrowserWindow();
+
+            // This means the user explicitly closed the window and most likely wants to quit
+            // the app. Otherwise, the tokens were successfully retrieved.
+            window.on('closed', () => {
+                // Lose the reference after closing the window
+                window = null;
+
+                if (!Authentication.hasRefreshToken()) {
+                    // The window was closed without getting the Spotify API tokens
+                    app.quit();
+                }
+            });
+
+            const loadUrl = () => window.loadURL(spotifyAuthentication.createAuthorizeURL().href);
+
+            loadUrl();
+
+            // Reload on error
+            // It is used `loadURL` instead of `reload` just in case the user goes somewhere
+            // with no return
+            window.webContents.on('did-fail-load', () => loadUrl());
+        }
 
         return new Promise((resolve, reject) => {
             const server = http.createServer((req, res) => {
@@ -23,14 +49,22 @@ class Authentication {
                 const codeRgx = req.url.match(/code=(.+)/);
 
                 if (codeRgx.length > 0) {
-                    window.close();
+                    window && window.close();
                     server.close();
                     this.getRefreshToken(codeRgx[1])
                         .then(resolve, reject);
                 }
             });
 
-            server.on('error', reject);
+            server.on('error', (error) => {
+                // An authentication is most likely in progress
+                // (another process may be in the same door)
+                if (error.code === 'EADDRINUSE') {
+                    resolve();
+                } else {
+                    reject(error);
+                }
+            });
 
             server.listen(1995);
         });
@@ -64,7 +98,7 @@ class Authentication {
     authenticate() {
         let f = this.newAuthentication;
 
-        if (store.has('refreshToken')) {
+        if (Authentication.hasRefreshToken()) {
             f = this.updateAccessToken;
         }
 

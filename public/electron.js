@@ -195,7 +195,14 @@ if (!app.requestSingleInstanceLock()) {
                 // Update data every 30 seconds
                 setInterval(() => spotifyContext.getUpdatedContextHistory()
                     .then(data => mb.window.webContents.send('update-data', data))
-                    .catch(err => console.error(err)), 30000);
+                    .catch((err) => {
+                        if (err.statusCode === 401) {
+                            // 401 UNAUTHORIZED
+                            authentication.authenticate();
+                        } else {
+                            console.error(err);
+                        }
+                    }), 30000);
 
                 // The interval 30 seconds is not random. Spotify only adds songs to the recently
                 // played tracks if they are played for more than 30 seconds. Given that there is
