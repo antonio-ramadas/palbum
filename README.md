@@ -13,7 +13,8 @@
  - [ ] Add website
  - [x] Build
  - [ ] GitHub release
- - [ ] Advertise ([Product Hunt](https://www.producthunt.com), [Hacker News](https://news.ycombinator.com))
+ - [ ] Collect feedback from family and friends
+ - [ ] Advertise ([Product Hunt](https://www.producthunt.com), [Hacker News](https://news.ycombinator.com), Reddit, ...)
 
 ## :beetle: Known issues
  - Spotify access token is refreshed 5 seconds before the timeout. This can cause bad requests if the request is slow.
