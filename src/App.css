@@ -7,6 +7,10 @@ table tr:nth-child(odd) {
     background-color: rgba(71, 199, 214, 0.16);
 }
 
+table tr.selected {
+    background-color: #32d6d07a;
+}
+
 table tr:nth-child(odd).dark-theme {
     background-color: #2F4562;
 }
@@ -24,13 +28,13 @@ td:hover {
     cursor: pointer;
 }
 
-.search {
+#search {
     display: flex;
     position: fixed;
     width: 100%;
 }
 
-.searchTerm {
+#searchTerm {
     float: left;
     width: 100%;
     border: 3px solid #00B4CC;
@@ -42,7 +46,7 @@ td:hover {
     color: #9DBFAF;
 }
 
-.searchTerm.dark-theme {
+#searchTerm.dark-theme {
     float: left;
     width: 100%;
     border: 3px solid #00B4CC;
@@ -55,15 +59,15 @@ td:hover {
     background-color: #081B33;
 }
 
-.searchTerm:focus{
+#searchTerm:focus{
     color: #00B4CC;
 }
 
-.searchTerm:hover {
+#searchTerm:hover {
     cursor: text;
 }
 
-.searchButton {
+#searchButton {
     right: 3px;
     width: 40px;
     height: 36px;

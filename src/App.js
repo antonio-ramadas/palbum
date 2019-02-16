@@ -27,7 +27,6 @@ class App extends Component {
     }
 
     handleKeyDown(event) {
-        console.log(event);
         const stateObj = this.state;
 
         if (event.key === 'Tab') {
@@ -164,10 +163,11 @@ class App extends Component {
         // Table adapted from: https://stackoverflow.com/a/17029347
         return (
             <>
-                <div className={`search ${getClassNameTheme(stateObj.darkMode)}`}>
+                <div id={'search'} className={getClassNameTheme(stateObj.darkMode)}>
                     <input
                         type="text"
-                        className={`searchTerm ${getClassNameTheme(stateObj.darkMode)}`}
+                        id={'searchTerm'}
+                        className={getClassNameTheme(stateObj.darkMode)}
                         placeholder="What do you want to hear?"
                         autoFocus={true}
                         onChange={event => this.handleInputChange(event)}
@@ -176,7 +176,7 @@ class App extends Component {
                     />
                     <button
                         type="submit"
-                        className="searchButton"
+                        id="searchButton"
                         tabIndex="-1"
                     >
                         <span role="img" aria-label="Search emoji">&#128269;</span>
