@@ -4,11 +4,11 @@
  - [x] Add Spotify logic (remember the number in album/playlist of the song currently playing and resume it from there) 
  - [x] Add list of albums/playlists
  - [x] Add shortcuts (global, arrows, selection, search)
- - [ ] Improve [README.md](readme.md)
+ - [ ] Improve [README.md](README.md)
  - [x] Add settings?
  - [x] Start at login
  - [x] Dark Mode
- - [ ] Fix TODOs
+ - [x] Fix TODOs
  - [ ] Refactor
  - [ ] Add website
  - [x] Build

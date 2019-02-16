@@ -76,7 +76,7 @@ class Authentication {
         return spotifyAuthentication.authorizationCodeGrant(code)
             .then((res) => {
                 store.set('refreshToken', res.refresh_token);
-                this.setAccessToken.bind(this)(res);
+                this.setAccessToken(res);
             });
     }
 
@@ -84,13 +84,13 @@ class Authentication {
         store.set('accessToken', res.access_token);
         spotifyContext.setAccessToken(res.access_token);
 
-        // REVIEW: Should the access token be updated in the background constantly?
-        setTimeout(this.updateAccessToken.bind(this), (res.expires_in - 5) * 1000);
+        // Update constantly the access token in the background
+        setTimeout(() => this.updateAccessToken(), (res.expires_in - 5) * 1000);
     }
 
     updateAccessToken() {
         return spotifyAuthentication.refreshAccessToken(store.get('refreshToken'))
-            .then(this.setAccessToken.bind(this))
+            .then(() => this.setAccessToken())
             .catch(() => {
                 store.delete('refreshToken');
                 return this.newAuthentication();
