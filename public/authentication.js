@@ -49,9 +49,11 @@ class Authentication {
                 const codeRgx = req.url.match(/code=(.+)/);
 
                 if (codeRgx.length > 0) {
-                    window && window.close();
-                    server.close();
                     this.getRefreshToken(codeRgx[1])
+                        .then(() => {
+                            window && window.close();
+                            server.close();
+                        })
                         .then(resolve, reject);
                 }
             });
