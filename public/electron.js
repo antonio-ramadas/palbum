@@ -173,6 +173,37 @@ function setUpApp() {
     setSystemListeners();
 }
 
+function setUpSpotify() {
+    const oneWeek = 7 * 24 * 60 * 60 * 1000; // eslint-disable-line no-unused-vars
+
+    // REVIEW: If Spotify lifts the restriction of only returning the most recent 50 tracks
+    //         then uncomment the following code or update the logic (instead of returning
+    //         1 week of tracks, return the most recent XXX tracks).
+    return spotifyContext.update(/* Date.now() - oneWeek */)
+        .then(() => {
+            setIpc();
+
+            // Update data every 30 seconds
+            setInterval(() => spotifyContext.getUpdatedContextHistory()
+                .then(data => mb.window.webContents.send('update-data', data))
+                .catch((err) => {
+                    if (err.statusCode === 401) {
+                        // 401 UNAUTHORIZED
+                        authentication.authenticate();
+                    } else {
+                        console.error(err);
+                    }
+                }), 30000);
+
+            // The interval 30 seconds is not random. Spotify only adds songs to the recently
+            // played tracks if they are played for more than 30 seconds. Given that there is
+            // no hook from Spotify to let know when there are new updates, we poll the API
+            // every 30 seconds.
+            // Check the following link for more information:
+            // https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/
+        });
+}
+
 // If there is another instance running, then quit this new one
 if (!app.requestSingleInstanceLock()) {
     app.quit();
@@ -185,32 +216,7 @@ if (!app.requestSingleInstanceLock()) {
         authentication.authenticate()
             .catch(() => app.quit())
             .then(() => setUpApp())
-            // REVIEW: If Spotify lifts the restriction of only returning the most recent 50 tracks
-            //         then uncomment the following code or update the logic (instead of returning
-            //         1 week of tracks, return the most recent XXX tracks).
-            .then(() => spotifyContext.update(/* Date.now() - oneWeek */))
-            .then(() => {
-                setIpc();
-
-                // Update data every 30 seconds
-                setInterval(() => spotifyContext.getUpdatedContextHistory()
-                    .then(data => mb.window.webContents.send('update-data', data))
-                    .catch((err) => {
-                        if (err.statusCode === 401) {
-                            // 401 UNAUTHORIZED
-                            authentication.authenticate();
-                        } else {
-                            console.error(err);
-                        }
-                    }), 30000);
-
-                // The interval 30 seconds is not random. Spotify only adds songs to the recently
-                // played tracks if they are played for more than 30 seconds. Given that there is
-                // no hook from Spotify to let know when there are new updates, we poll the API
-                // every 30 seconds.
-                // Check the following link for more information:
-                // https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/
-            })
+            .then(() => setUpSpotify())
             .then(() => {
                 // Show window only if the app did not start at login
                 if (startupUtil.shouldShowWindow()) {

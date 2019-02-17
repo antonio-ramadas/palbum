@@ -3,6 +3,10 @@
     height: 40px;
 }
 
+p, h3 {
+    margin:0;
+}
+
 h3.dark-theme, p.dark-theme {
     color: #99a0b5;
 }

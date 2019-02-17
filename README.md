@@ -9,7 +9,7 @@
  - [x] Start at login
  - [x] Dark Mode
  - [x] Fix TODOs
- - [ ] Refactor
+ - [x] Refactor
  - [ ] Add website
  - [x] Build
  - [ ] GitHub release

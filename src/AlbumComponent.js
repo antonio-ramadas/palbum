@@ -33,7 +33,8 @@ class AlbumComponent extends Component {
         return (
             <tr
                 onClick={() => this.props.onClick()}
-                className={`${selected} ${theme}`.trim()}
+                id={selected}
+                className={theme}
                 onMouseOver={() => this.props.onMouseOver()}
                 ref={this.rowRef}
             >
