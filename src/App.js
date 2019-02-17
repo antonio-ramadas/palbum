@@ -15,7 +15,6 @@ class App extends Component {
         this.state = {
             context: [],
             search: {
-                term: '',
                 results: [],
             },
             currentSelected: 0,
@@ -57,10 +56,10 @@ class App extends Component {
         });
     }
 
-    search(term, ctx) {
+    search(ctx) {
         const stateObj = this.state;
 
-        const searchTerm = term || stateObj.search.term;
+        const searchTerm = this.searchInputRef.current.value;
         const context = ctx || stateObj.context;
 
         const searchOptions = {
@@ -80,7 +79,7 @@ class App extends Component {
 
         let searchResults = context;
 
-        if (!(term === '' || searchTerm === '')) {
+        if (searchTerm !== '') {
             const fuse = new Fuse(context, searchOptions);
             searchResults = fuse.search(searchTerm);
         }
@@ -90,14 +89,13 @@ class App extends Component {
         this.setState({
             context,
             search: {
-                term: searchTerm,
                 results: searchResults,
             },
         });
     }
 
     updateDataFromIpc(event, arg) {
-        this.search(null, arg);
+        this.search(arg);
     }
 
     componentDidMount() {
@@ -133,7 +131,7 @@ class App extends Component {
     }
 
     handleInputChange(event) {
-        this.search(event.target.value, null);
+        this.search();
     }
 
     handleAlbumComponentClick(uri) {
@@ -173,7 +171,7 @@ class App extends Component {
                         className={getClassNameTheme(stateObj.darkMode)}
                         placeholder="What do you want to hear?"
                         autoFocus={true}
-                        onChange={event => this.handleInputChange(event)}
+                        onChange={() => this.search()}
                         onKeyDown={event => this.handleKeyDown(event)}
                         ref={this.searchInputRef}
                     />
