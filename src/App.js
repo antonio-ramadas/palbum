@@ -66,10 +66,13 @@ class App extends Component {
         const searchOptions = {
             keys: [{
                 name: 'context.name',
-                weight: 0.7,
+                weight: 0.6,
             }, {
                 name: 'track.name',
                 weight: 0.3,
+            }, {
+                name: 'track.artists.name',
+                weight: 0.1,
             }],
             shouldSort: true,
             threshold: 0.35,
