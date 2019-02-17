@@ -90,7 +90,7 @@ class Authentication {
 
     updateAccessToken() {
         return spotifyAuthentication.refreshAccessToken(store.get('refreshToken'))
-            .then(() => this.setAccessToken())
+            .then(response => this.setAccessToken(response))
             .catch(() => {
                 store.delete('refreshToken');
                 return this.newAuthentication();
