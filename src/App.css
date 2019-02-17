@@ -2,6 +2,8 @@
     Styles specific to a theme (dark or light) have an available class selector `.dark-theme` or `.light-theme`.
     Avoid repeating styles. Don't use theme selectors for common properties with same values.
     Do use theme selectors to introduce or override style properties.
+
+    Color scheme adapted from: https://www.schemecolor.com/mojave-dark-mode-wallpaper.php
 */
 
 /* Search CSS */
