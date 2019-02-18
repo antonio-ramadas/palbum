@@ -32,6 +32,7 @@
 
 ## :man_technologist: Project decisions
  - Given the bulk size of the app, I try to cut down external packages that add little value, but sometimes carry several dependencies. Often they are safer, but it is also often the case that there is no need for this case. So, sometimes you can see code that does the same like other packages. However, if you do not agree with this in any place, please say so because I may have overlooked.
+ - Color of Windows icon: 5, 107, 184 (R, G, B)
 
 ## :raised_hands: Acknowledgments
 

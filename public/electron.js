@@ -30,9 +30,11 @@ function createTray() {
         slashes: true,
     });
 
+    const iconExtension = process.platform === 'win32' ? 'ico' : 'png';
+
     mb = menubar({
         index: startUrl,
-        icon: path.join(__dirname, 'tray-icons/PablumTemplate.png'),
+        icon: path.join(__dirname, `tray-icons/PablumTemplate.${iconExtension}`),
         tooltip: 'Resume playing Spotify back where you left off',
         preloadWindow: true,
     });

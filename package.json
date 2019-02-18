@@ -62,7 +62,7 @@
             "darkModeSupport": true
         },
         "win": {
-            "icon": "build/icon.png"
+            "icon": "build/windows-icon.png"
         },
         "linux": {
             "category": "Audio",
