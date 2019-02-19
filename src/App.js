@@ -1,5 +1,7 @@
 import React, { Component } from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import Fuse from 'fuse.js';
+import Mousetrap from 'mousetrap';
+import globalBind from 'mousetrap-global-bind';
 import './App.css';
 import AlbumComponent from './AlbumComponent';
 import { getClassNameTheme } from './Util';
@@ -25,26 +27,41 @@ class App extends Component {
         this.searchInputRef = React.createRef();
     }
 
-    handleKeyDown(event) {
-        const stateObj = this.state;
-
-        if (event.key === 'Tab') {
-            const currentSelected = stateObj.currentSelected + (event.shiftKey ? -1 : 1);
-
-            this.updateSelection(currentSelected, stateObj.search.results.length - 1);
-
+    static handleKeyDown(event) {
+        if (['Tab', 'ArrowUp', 'ArrowDown'].indexOf(event.key) > -1) {
             event.preventDefault();
-        } else if (event.key === 'Enter') {
+        }
+    }
+
+    bindKeyListeners() {
+        const move = (direction) => {
+            const stateObj = this.state;
+
+            const newPosition = stateObj.currentSelected + direction;
+
+            this.updateSelection(newPosition, stateObj.search.results.length - 1);
+        };
+
+        const moveUp = () => move(-1);
+        const moveDown = () => move(1);
+
+        Mousetrap.bindGlobal('mod+d', () => ipcRenderer.send('toggle-dark-mode-state'));
+
+        Mousetrap.bindGlobal('esc', () => ipcRenderer.send('hide-window'));
+
+        Mousetrap.bindGlobal('tab', () => moveDown());
+        Mousetrap.bindGlobal('shift+tab', () => moveUp());
+
+        Mousetrap.bindGlobal('up', () => moveUp());
+        Mousetrap.bindGlobal('down', () => moveDown());
+
+        Mousetrap.bindGlobal('enter', () => {
+            const stateObj = this.state;
+
             if (stateObj.currentSelected < stateObj.search.results.length) {
                 App.play(stateObj.search.results[stateObj.currentSelected].context.uri);
             }
-        } else if (event.key === 'ArrowUp') {
-            this.updateSelection(stateObj.currentSelected - 1, stateObj.search.results.length - 1);
-            event.preventDefault();
-        } else if (event.key === 'ArrowDown') {
-            this.updateSelection(stateObj.currentSelected + 1, stateObj.search.results.length - 1);
-            event.preventDefault();
-        }
+        });
     }
 
     updateSelection(newCurrentSelection, maxSize) {
@@ -115,6 +132,8 @@ class App extends Component {
             ipcRenderer.send('get-dark-mode-state');
         }
 
+        this.bindKeyListeners();
+
         this.searchInputRef.current.focus();
     }
 
@@ -124,6 +143,8 @@ class App extends Component {
             ipcRenderer.removeAllListeners('dark-mode-state');
             // No need to update to not listening, because the state will be lost
         }
+
+        Mousetrap.unbind(['mod+d', 'esc', 'tab', 'shift+tab', 'up', 'down']);
     }
 
     static play(uri) {
@@ -172,7 +193,7 @@ class App extends Component {
                         placeholder="What do you want to hear?"
                         autoFocus={true}
                         onChange={() => this.search()}
-                        onKeyDown={event => this.handleKeyDown(event)}
+                        onKeyDown={event => App.handleKeyDown(event)}
                         ref={this.searchInputRef}
                     />
                     <button

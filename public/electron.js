@@ -87,7 +87,7 @@ function setGlobalShortcuts() {
         return;
     }
 
-    let gs = globalShortcut.register('CommandOrControl+M', () => {
+    const gs = globalShortcut.register('CommandOrControl+M', () => {
         if (mb.window.isVisible()) {
             hideWindow();
         } else {
@@ -97,25 +97,6 @@ function setGlobalShortcuts() {
 
     if (!gs) {
         console.warn('Registration of the global shortcut to show/hide the window has failed.');
-    }
-
-    gs = globalShortcut.register('Esc', () => {
-        if (mb.window.isVisible()) {
-            hideWindow();
-        }
-    });
-
-    if (!gs) {
-        console.warn('Registration of the global shortcut to hide the window has failed.');
-    }
-
-    gs = globalShortcut.register('CommandOrControl+D', () => {
-        darkMode.toggleUser();
-        sendToFrontEndTheDarkModeState();
-    });
-
-    if (!gs) {
-        console.warn('Registration of the global shortcut to toggle dark mode has failed.');
     }
 }
 
@@ -157,6 +138,17 @@ function setIpc() {
     ipcMain.on('play', (event, arg) => {
         spotifyContext.play(arg)
             .catch(() => console.error(`Failed to play: ${arg}`));
+    });
+
+    ipcMain.on('hide-window', () => {
+        if (mb.window.isVisible()) {
+            hideWindow();
+        }
+    });
+
+    ipcMain.on('toggle-dark-mode-state', () => {
+        darkMode.toggleUser();
+        sendToFrontEndTheDarkModeState();
     });
 
     ipcMain.on('get-dark-mode-state', () => sendToFrontEndTheDarkModeState());
