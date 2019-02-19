@@ -1,6 +1,8 @@
 import React, { Component } from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import Fuse from 'fuse.js';
 import Mousetrap from 'mousetrap';
+// REVIEW: globalBind is not used, but changes the prototype of Mousetrap.
+//         Improve the way thisis being done.
 import globalBind from 'mousetrap-global-bind';
 import './App.css';
 import AlbumComponent from './AlbumComponent';
