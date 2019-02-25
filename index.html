@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="A simple and intuitive resume listener for Spotify">
+		<meta name="author" content="António Ramadas">
+		<meta property="og:url" content="https://antonio-ramadas.github.io/palbum/">
+		<meta property="og:title" content="Palbum">
+		<meta property="og:description" content="A simple and intuitive resume listener for Spotify">
+        <!-- TODO replace this image -->
+		<meta property="og:image" content="https://sindresorhus.com/caprine/images/screenshot-promo.jpg">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:creator" content="@antonio_ramadas">
+		<meta name="twitter:title" content="Palbum">
+		<meta name="twitter:description" content="A simple and intuitive resume listener for Spotify">
+        <!-- TODO replace this image -->
+		<meta name="twitter:image" content="https://sindresorhus.com/caprine/images/screenshot-promo.jpg">
+		<title>Palbum</title>
+		<link rel="icon" href="images/favicon.ico" sizes="32x32">
+		<link rel="stylesheet" href="bulma.min.css">
+		<style>
+			a:not(.button) {
+				color: #3273dc;
+				box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1) !important;
+			}
+
+			a:not(.button):hover {
+				color: #000;
+				box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.3) !important;
+			}
+
+			.main-title {
+				font-size: 50px !important;
+			}
+
+			.palbum-icon {
+				width: 200px;
+				margin-bottom: 30px;
+			}
+
+			.palbum-screenshot {
+				padding-top: 30px;
+			}
+
+			.disclaimer {
+				margin-top: 10px;
+				margin-bottom: 20px !important;
+			}
+
+			.screenshot {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 400px;
+			}
+
+			.feature-item {
+				padding-top: 20px !important;
+				padding-bottom: 20px !important;
+			}
+
+			.feature-title {
+				padding-bottom: 0px !important;
+			}
+
+			.more-features {
+				margin-bottom: 40px;
+			}
+
+			.main-screenshot {
+				width: 60%;
+			}
+
+			#palbum-title {
+				position: relative;
+				margin-bottom: 30px;
+			}
+
+			#version-text {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: -15px;
+				text-align: center;
+				font-size: 12px;
+			}
+
+			#read-more {
+				display: inline-block;
+				font-size: 12px;
+				margin-top: 20px;
+			}
+
+			@media screen and (max-width: 768px) {
+				.main-screenshot {
+					width: 100%;
+				}
+
+				.screenshot {
+					height: 300px;
+				}
+			}
+
+            .numbered {
+                color: darkgrey;
+            }
+		</style>
+        <!-- TODO add possible javascript -->
+		<!--<script defer src="main.js"></script>-->
+		<!-- TODO add Google Analytics -->
+		<!-- / Google Analytics -->
+	</head>
+	<body>
+		<section class="hero is-fluid is-default has-text-centered">
+			<div class="hero-body">
+				<div id="palbum-body" class="container">
+					<img class="palbum-icon" src="images/icon.png" alt="Caprine">
+					<h1 id="palbum-title" class="title main-title is-spaced">
+						<strong>Palbum</strong>
+						<span id="version-text"></span>
+					</h1>
+					<h2 class="subtitle">A simple and intuitive resume listener for Spotify</h2>
+                    <!-- TODO update download URL -->
+					<a id="download-button" class="button is-info is-outlined is-large" href="https://github.com/antonio-ramadas/palbum/releases">Download</a>
+					<br>
+					<p>
+						<a id="read-more" href="https://github.com/antonio-ramadas/palbum#musical_note-palbum">Read more</a>
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="hero is-fluid is-default is-light has-text-centered palbum-screenshot">
+			<div class="container">
+				<img class="main-screenshot" src="old-images/screenshot.png" alt="screenshot">
+			</div>
+		</section>
+		<section class="container">
+			<div class="hero hero-body has-text-centered feature-title">
+				<h1 class="title main-title">Features</h1>
+			</div>
+			<div class="columns">
+				<div class="column">
+					<div class="hero">
+						<div class="hero-body has-text-centered feature-item">
+							<div class="screenshot">
+								<img src="old-images/screenshot-dark.png" alt="screenshot" width="500">
+							</div>
+							<h1 class="title is-spaced">Dark mode</h1>
+							<h2 class="subtitle">Match the theme to your preferences</h2>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="hero">
+						<div class="hero-body has-text-centered feature-item">
+							<div class="screenshot">
+								<img src="old-images/privacy.png" alt="screenshot" width="500">
+							</div>
+							<h1 class="title is-spaced">Effortless</h1>
+							<h2 class="subtitle">No need to change screen to use it</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="container more-features">
+			<div class="columns">
+				<div class="column">
+					<div class="hero">
+						<div class="hero-body has-text-centered feature-item">
+							<div class="screenshot">
+								<img src="old-images/screenshot-compact.png" alt="screenshot" width="500">
+							</div>
+							<h1 class="title is-spaced">Intuitive</h1>
+							<h2 class="subtitle">Just a list with a search bar</h2>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<div class="hero">
+						<div class="hero-body has-text-centered feature-item">
+							<div class="screenshot">
+								<img src="old-images/screenshot-notification.png" alt="screenshot" width="500">
+							</div>
+							<h1 class="title is-spaced">Shortcuts</h1>
+							<h2 class="subtitle">Full control without using a mouse</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+        <section class="container">
+            <div class="hero hero-body has-text-centered feature-title">
+                <h1 class="title main-title">How to use</h1>
+            </div>
+            <div class="hero">
+                <div class="hero-body has-text-centered feature-item">
+                    <div class="screenshot">
+                        <img src="old-images/screenshot-dark.png" alt="screenshot" width="500">
+                    </div>
+                    <h1 class="title is-spaced"><span class="numbered">1. </span>Listen to Spotify <strong>wherever you want</strong></h1>
+                </div>
+            </div>
+            <div class="hero">
+                <div class="hero-body has-text-centered feature-item">
+                    <div class="screenshot">
+                        <img src="old-images/screenshot-dark.png" alt="screenshot" width="500">
+                    </div>
+                    <h1 class="title is-spaced"><span class="numbered">2. </span>Check all albums/playlists you listened <strong>before</strong></h1>
+                    <h2 class="subtitle">The track that appear under the album is the last one you heard</h2>
+                </div>
+            </div>
+            <div class="hero">
+                <div class="hero-body has-text-centered feature-item">
+                    <div class="screenshot">
+                        <img src="old-images/screenshot-dark.png" alt="screenshot" width="500">
+                    </div>
+                    <h1 class="title is-spaced"><span class="numbered">3. </span><strong>Resume listening</strong> from where you left off</h1>
+                    <!-- TODO add link to table of shortcuts -->
+                    <h2 class="subtitle">Select the album/playlist you want with your mouse or keyboard</h2>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="hero hero-body has-text-centered feature-title">
+                <h1 class="title main-title">Shortcuts</h1>
+            </div>
+            <!-- TODO add table with shortcuts -->
+            <div class="hero">
+                <div class="hero-body has-text-centered feature-item">
+                    <div class="screenshot">
+                        <img src="old-images/screenshot-dark.png" alt="screenshot" width="500">
+                    </div>
+                    <h1 class="title is-spaced"><span class="numbered">1. </span>Listen to Spotify <strong>wherever you want</strong></h1>
+                </div>
+            </div>
+        </section>
+		<footer class="footer hero is-info is-paddingless">
+			<div class="hero-body">
+				<div class="container">
+					<div class="has-text-centered">
+						<p>Created by <a href="https://github.com/antonio-ramadas">António Ramadas</a>.</p>
+						<p class="disclaimer"><strong>Palbum</strong> is a third-party app and is not affiliated with Spotify.</p>
+						<div class="block">
+							<a class="button is-info is-inverted is-outlined" href="https://github.com/antonio-ramadas/palbum">Source Code</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
