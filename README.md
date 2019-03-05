@@ -10,7 +10,7 @@
  - [x] Dark Mode
  - [x] Fix TODOs
  - [x] Refactor
- - [ ] Add website
+ - [x] Add website
  - [x] Build
  - [ ] GitHub release
  - [ ] Collect feedback from family and friends
