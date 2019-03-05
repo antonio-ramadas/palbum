@@ -11,6 +11,8 @@ Consider this: you are in your car and playing a CD. Let's name it _Foo_. You're
 
 ### :raised_hands: Acknowledgments
 
- - Website borrowed from [Caprine](https://sindresorhus.com/caprine/).
+ - Website borrowed from [Caprine](https://sindresorhus.com/caprine/)
 
  - Icons made by Freepik, Dave Gandy, Icomoon, and Icon Works from www.flaticon.com
+
+ - Multi-platform Spotify image from: https://www.silicon.co.uk/cloud/spotify-google-cloud-aws-gcp-199408
