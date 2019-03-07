@@ -35,7 +35,7 @@ function createTray() {
     mb = menubar({
         index: startUrl,
         icon: path.join(__dirname, `tray-icons/PablumTemplate.${iconExtension}`),
-        tooltip: 'Resume playing Spotify back from where you left',
+        tooltip: 'Palbum - Resume playing Spotify back from where you left',
         preloadWindow: true,
     });
 
