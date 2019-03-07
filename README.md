@@ -12,7 +12,7 @@
  - [x] Refactor
  - [x] Add website
  - [x] Build
- - [ ] GitHub release
+ - [x] GitHub release
  - [ ] Collect feedback from family and friends
  - [ ] Advertise ([Product Hunt](https://www.producthunt.com), [Hacker News](https://news.ycombinator.com), Reddit, ...)
 
