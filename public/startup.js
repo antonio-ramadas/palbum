@@ -61,7 +61,7 @@ function shouldShowWindow() {
 
     // Login item settings does not work properly on all OS
     if (process.platform === 'darwin') {
-        shouldShow = shouldShow || (wasOpenedAtLogin && !wasOpenedAsHidden);
+        shouldShow = !(wasOpenedAtLogin && wasOpenedAsHidden);
     } else if (process.platform === 'win32') {
         shouldShow = !wasOpenedAtLogin;
     }
