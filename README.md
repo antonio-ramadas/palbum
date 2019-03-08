@@ -33,41 +33,39 @@ Palbum gives you control to play an album/playlist from where you left by showin
 
 ### :runner: Shortcuts
 
-<div align="center">
-  <table>
-      <thead>
-      <tr>
-          <th>Shortcut (Mac)</th>
-          <th>Shortcut (Windows/Linux)</th>
-          <th>Action</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-          <td>&#8984; + M</td>
-          <td>ctrl + M</td>
-          <td>Show/Hide window</td>
-      </tr>
-      <tr>
-          <td>&#8984; + D</td>
-          <td>ctrl + D</td>
-          <td>Toggle dark mode</td>
-      </tr>
-      <tr>
-          <td colspan="2">Arrow/tab keys or mouse wheel</td>
-          <td>Scroll list</td>
-      </tr>
-      <tr>
-          <td colspan="2">Enter or left click</td>
-          <td>Play</td>
-      </tr>
-      <tr>
-          <td colspan="2">Right click on the icon</td>
-          <td>Quit and other options</td>
-      </tr>
-      </tbody>
-  </table>
-</div>
+<table align="center">
+  <thead>
+    <tr>
+        <th>Shortcut (Mac)</th>
+        <th>Shortcut (Windows/Linux)</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>&#8984; + M</td>
+        <td>ctrl + M</td>
+        <td>Show/Hide window</td>
+    </tr>
+    <tr>
+        <td>&#8984; + D</td>
+        <td>ctrl + D</td>
+        <td>Toggle dark mode</td>
+    </tr>
+    <tr>
+        <td colspan="2">Arrow/tab keys or mouse wheel</td>
+        <td>Scroll list</td>
+    </tr>
+    <tr>
+        <td colspan="2">Enter or left click</td>
+        <td>Play</td>
+    </tr>
+    <tr>
+        <td colspan="2">Right click on the icon</td>
+        <td>Quit and other options</td>
+    </tr>
+    </tbody>
+</table>
 
 ## :man_technologist: Development
 
