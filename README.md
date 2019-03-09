@@ -17,6 +17,16 @@ Palbum gives you control to play an album/playlist from where you left by showin
 </a>
 </details>
 
+## Main sections of this file
+
+ - [Features](#sparkles-features)
+
+ - [Development](#man_technologist-development)
+
+ - [F.A.Q.](#question-faq)
+
+ - [Acknowledgments](#raised_hands-acknowledgments)
+
 ## :sparkles: Features
 
 ### :waxing_crescent_moon: Dark mode
@@ -71,20 +81,80 @@ Palbum gives you control to play an album/playlist from where you left by showin
 
 ### Requirements
 
+Palbum works on macOS, Windows and Linux. You are able to develop on any of these platforms.
+
+Palbum is a JavaScript application, so you need [Node.js](https://nodejs.org/en/) since `v10.15.1`.
+
 ### Tech stack
+
+Palbum is split into two. The backend is built on top of [Electron](https://electronjs.org) which creates a server on port 1995 for the authentication process. The frontend uses [React](https://reactjs.org) which creates a server on port 3000 while on development.
+
+There are also a bunch of files on the root of the repository which are [explained on one of my other repositories](https://github.com/antonio-ramadas/my-javascript-boilerplate).
+
+The authentication is made with a [proxy server](https://github.com/antonio-ramadas/spotify-proxy-oauth2) and a [Spotify authentication module](https://github.com/antonio-ramadas/spotify-authentication). The server is used to hide the app credentials. Given that the code is open source, you can deploy your own server with your own credentials. The module used for authentication is used to make a valid Spotify authentication request which goes through the proxy server so it can add the necessary data.
+
+If you want to deploy your own server, then, in case you use [spotify-proxy-oauth2](https://github.com/antonio-ramadas/spotify-proxy-oauth2), you need to set the following environment variables after creating a Spotify app:
+ - `CLIENT_ID`
+   - ID of your Spotify ap
+
+ - `CLIENT_SECRET`
+   - Secret of your Spotify app
+
+ - `REDIRECT_URI`
+   - The URI which Spotify should redirect the user to after the authentication process. Please beaware you need to add the URI to the list of redirects of your Spotify app.
+
+ - `SCOPE`
+   - For Palbum you need `user-read-currently-playing user-read-recently-played user-modify-playback-state`
 
 ### Installation
 
-### Scripts
+Navigate to the root of this repository and run `npm install` on your terminal. You have now all the required node modules and you are able to run any of the [npm scripts](#npm-scripts). After installing, a [git hook is created to test for any lint errors before any commit](git-hooks/pre-commit.sh). Given the small size of the project, it should not take more than a couple of seconds.
 
 ### How does Palbum work?
 
-### How to contribute?
+Palbum is a very simple app that runs on the user toolbar/menubar. It retrieves the most recent played tracks using the [spotify-context-history](https://github.com/antonio-ramadas/spotify-context-history) module. Afterwards, every 30 seconds a new request is made through this module to Spotify to check for any new updates. This data is then merged with the existent tracks on Palbum. The _play_ action is also made with this module. The access key is refreshed on the background. If there is any problem while updating the keys, the authentication is restarted. If the authentication does not work, then Palbum quits.
+
+Electron and React use [Inter Process Communication](https://github.com/electron/electron/blob/master/docs/api/ipc-main.md) to request/retrieve data (e.g., dark mode state and list of tracks).
+
+### Project decisions
+
+ - Given the bulk size of the app, I tried to cut down external packages that add little value and carry several dependencies. So, sometimes you can see code that does the same as other packages. However, if you do not agree with this in any place, please say so because I may have overlooked.
+
+ - Color of Windows icon: 5, 107, 184 (R, G, B)
+   - The default icon is all black and becomes invisible in the default Windows theme.
 
 ## :question: F.A.Q.
 
 <details>
-<summary>I am listening a song and it does not appear on Palbum</summary>
+<summary>If I play Spotify on my phone, will they also appear on Palbum?</summary>
+
+Yes! The information is retrieved from Spotify and it does not matter where you listen.
+</details>
+
+<details>
+<summary>I'm listening to Spotify on my phone, can I use Palbum to change tracks?</summary>
+
+Yes! Palbum will play what you chose on an active player and it does not matter which one it is.
+</details>
+
+<details>
+<summary>I am listening/listened to a song and it does not appear on Palbum</summary>
+
+There a multiple reasons for this to happen:
+
+ - Spotify only adds a track to the most recently played after listening to [for more than 30 seconds](https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/)
+
+ - [Spotify only returns the 50 most recently played tracks](https://github.com/spotify/web-api/issues/20). If you keep Palbum running then you may well see over 50 tracks, because Palbum stores it in cache. If you restart the app, then you'll see at most 50 tracks, because the cache is discarded.
+</details>
+
+<details>
+<summary>Spotify is not playing any of the tracks I choose</summary>
+
+Try this: play any track on Spotify where you want to listen and then try again. If it worked, you can stop reading. If it did not, then continue.
+
+> Side note: this solution may work, because Spotify requires an active player so you can change tracks. It can be complicated to know where you want Spotify to play (e.g., phone or laptop?)
+
+Now answer this: Do you have a premium account? If you **do**, then you most likely discovered a bug. Report it by [opening an issue](https://github.com/antonio-ramadas/palbum/issues/new). If you **don't** have a premium account, then I am aware of this [limitation imposed by Spotify](https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/) and trying to figure out a solution.
 </details>
 
 <details>
@@ -128,7 +198,7 @@ I listen to Spotify at work and I choose a playlist according to my mood or the 
 
 > _Skip this part if you do not want to know the geeky details._
 >
-> I already had some experience with [Electron](https://electronjs.org), but none with [React](https://reactjs.org). Where I work we use React and since I am a junior developer that only had been working for a couple of months, I decided to do a small project to understand React better and make smart decisions at work. At the time, I knew React did much more than I intended and still believe this, but I wanted to learn more. It is not a choice I regret. Actually, I am happy I did it and how much I have learn until now.
+> I already had some experience with [Electron](https://electronjs.org), but none with [React](https://reactjs.org). Where I work we use React and since I am a junior software engineer that only had been working for a couple of months, I decided to do a small project to understand React better and make smart decisions at work. At the time, I knew React did much more than I intended and still believe this, but I wanted to learn more. It is not a choice I regret. Actually, I am happy I did it and how much I have learn until now.
 
 After implementing this project, I noticed there are [at least 1099 votes for a native Spotify feature](https://community.spotify.com/t5/Live-Ideas/All-Platforms-Remember-Position-in-Playlist-Album/idi-p/55725#comments) that does what Palbum is doing. At the time I am writing this, this feature has 269 comments and is the 75th most voted request out of 1620! I am happy to see that I am not the only one and that I have made something that is helpful to others until Spotify implements it.
 </details>
@@ -137,7 +207,7 @@ After implementing this project, I noticed there are [at least 1099 votes for a 
  - [x] Add Spotify logic (remember the number in album/playlist of the song currently playing and resume it from there) 
  - [x] Add list of albums/playlists
  - [x] Add shortcuts (global, arrows, selection, search)
- - [ ] Improve [README.md](README.md)
+ - [x] Improve [README.md](README.md)
  - [x] Add settings?
  - [x] Start at login
  - [x] Dark Mode

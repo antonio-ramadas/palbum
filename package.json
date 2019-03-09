@@ -9,6 +9,9 @@
     "keywords": [
         "spotify"
     ],
+    "engines": {
+        "node": ">= 10.15.1"
+    },
     "homepage": "./",
     "main": "public/electron.js",
     "repository": "github:antonio-ramadas/palbum",
