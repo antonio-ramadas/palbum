@@ -110,7 +110,7 @@ Electron and React use [Inter Process Communication](https://github.com/electron
 
  - Given the bulk size of the app, I tried to cut down external packages that add little value and carry several dependencies. So, sometimes you can see code that does the same as other packages. However, if you do not agree with this in any place, please say so because I may have overlooked.
 
- - The colour of Windows icon is: 5, 107, 184 (R, G, B)
+ - Windows icon colour: 5, 107, 184 (R, G, B)
    - The default icon is all black and becomes invisible in the default Windows theme.
 
 ## :question: F.A.Q.
@@ -197,4 +197,4 @@ After implementing this project, I noticed there are [at least 1099 votes for a 
 
 Icon made by Freepik from [www.flaticon.com](https://www.flaticon.com/free-icon/musical-notes-symbols_11178#term=musical%20note&page=1&position=35)
 
-Website and README.md inspiration from [Caprine](https://sindresorhus.com/caprine/)
+Website and README.md inspired by [Caprine](https://sindresorhus.com/caprine/)
