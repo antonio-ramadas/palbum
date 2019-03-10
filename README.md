@@ -130,9 +130,9 @@ Yes! Palbum will play what you chose on an active player and it does not matter 
 <details>
 <summary>I am listening/listened to a song and it does not appear on Palbum</summary>
 
-There a multiple reasons for this to happen:
+There are multiple reasons for this to happen:
 
- - Spotify only adds a track to the most recently played after listening to [for more than 30 seconds](https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/)
+ - Spotify only adds a track to the most recently played after listening to [for more than 30 seconds](https://developer.spotify.com/documentation/web-api/reference/player/get-recently-played/).
 
  - [Spotify only returns the 50 most recently played tracks](https://github.com/spotify/web-api/issues/20). If you keep Palbum running then you may well see over 50 tracks, because Palbum stores them in cache. If you restart the app, then you'll see at most 50 tracks, because the cache is discarded.
 </details>
@@ -142,7 +142,7 @@ There a multiple reasons for this to happen:
 
 Try this: play any track on Spotify where you want to listen and then try again. If it worked, you can stop reading. If it did not, then continue.
 
-> Side note: this solution may work because Spotify requires an active player (i.e., you must have an active Spotify session on any of your devices). I suspect this requirement is derived to the complicated nature it can be for Spotify to guess where you want to listen if you are not listening anywhere.
+> Side note: this solution may work because Spotify requires an active player (i.e., you must have an active Spotify session on any of your devices). I suspect this requirement is derived from the complicated nature it can be for Spotify to guess where you want to listen if you are not listening anywhere.
 
 Now answer this: Do you have a premium account? If you **do**, then you most likely discovered a bug. Report it by [opening an issue](https://github.com/antonio-ramadas/palbum/issues/new). If you **don't** have a premium account, then I am aware of this [limitation imposed by Spotify](https://developer.spotify.com/documentation/web-api/reference/player/start-a-users-playback/) and I'm trying to figure out a solution.
 </details>
@@ -184,16 +184,18 @@ Yes, there most likely will be. Palbum creates a single file to store your acces
 <details>
 <summary>Why did you do this?</summary>
 
-I listen to Spotify at work and I choose a playlist according to my mood or the mood I want to be. It so happens that each mood has multiple playlists and I kept changing. After some time, I grew tired of having to remember what track I was listening to after switching from one playlist and going back to another. I had found no solutions online and decided to put my skills into practice.
+I listen to Spotify at work and I choose a playlist according to my mood or the mood I want to have. It so happens that each mood has multiple playlists and I kept changing. After some time, I grew tired of having to remember what track I was listening to after switching from one playlist and going back to another. I had found no solutions online and decided to put my skills into practice.
 
 > _Skip this part if you do not want to know the geeky details._
 >
-> I already had some experience with [Electron](https://electronjs.org), but none with [React](https://reactjs.org). Where I work we use React and since I am a junior software engineer that only had been working for a couple of months, I decided to do a small project to have a deeper understanding of  React and make better decisions at work. At the time, I knew React did much more than I intended and still believe this, but I wanted to learn more. It is not a choice I regret. Actually, I am happy I did it and how much I have learned until now.
+> I already had some experience with [Electron](https://electronjs.org), but none with [React](https://reactjs.org). Where I work we use React and since I am a junior software engineer that only has been working for a couple of months, I decided to do a small project to have a deeper understanding of  React and make better decisions at work. At the time, I knew React did much more than I intended and still believe this, but I wanted to learn more. It is not a choice I regret. Actually, I am happy I did it and how much I have learned until now.
 
 After implementing this project, I noticed there are [at least 1099 votes for a native Spotify feature](https://community.spotify.com/t5/Live-Ideas/All-Platforms-Remember-Position-in-Playlist-Album/idi-p/55725) that does what Palbum is doing. At the time I am writing this, this feature has 269 comments and is the 75th most voted request out of 1620! I am happy to see that I am not the only one and that I have made something that is helpful to others until Spotify implements it.
 </details>
 
 ## :raised_hands: Acknowledgments
+
+Huge props to my brother for being alpha and beta tester, proof-reader and borrowing me his Spotify account.
 
 Icon made by Freepik from [www.flaticon.com](https://www.flaticon.com/free-icon/musical-notes-symbols_11178#term=musical%20note&page=1&position=35)
 
