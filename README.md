@@ -2,7 +2,15 @@
 
 > Resume playing Spotify back from where you left
 
-Palbum gives you control to play an album/playlist from where you left by showing you a list of the most recently played tracks.
+Palbum gives you control to play on Spotify an album/playlist from where you left by showing you a list of the most recently played tracks.
+
+<details>
+<summary>:man_shrugging: I still did not get it</summary>
+
+Consider this: you are in your car and playing a CD. Let's name it Foo. You're in the middle of it, but now you swap CDs. Sometime later you decide to go back to the first CD (Foo), but you want to continue to listen to the CD from the last track you were listening to. Well, now you have a problem because you and your car don't remember your last track. Palbum fixes this by keeping track of the last tracks you heard.
+</details>
+
+<br>
 
 **[Website](https://antonio-ramadas.github.io/palbum)**
 
