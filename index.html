@@ -58,6 +58,13 @@
 				padding-bottom: 0px !important;
 			}
 
+            .subtitle {
+                margin-left: auto;
+                margin-right: auto;
+                color: gray;
+                max-width: 75%;
+            }
+
 			.more-features {
 				margin-bottom: 40px;
 			}
@@ -117,7 +124,7 @@
 						<strong>Palbum</strong>
                         <span id="version-text"></span>
 					</h1>
-					<h2 class="subtitle">A simple and intuitive resume listener for Spotify</h2>
+					<h2 class="subtitle">A desktop app that allows you to continue playing on Spotify an album/playlist from the last track you heard</h2>
 					<a id="download-button" class="button is-info is-outlined is-large" href="https://github.com/antonio-ramadas/palbum/releases">Download</a>
 					<br>
 					<p>
@@ -126,66 +133,11 @@
 				</div>
 			</div>
 		</section>
-		<section class="container">
-			<div class="hero hero-body has-text-centered feature-title">
-				<h1 class="title main-title">Features</h1>
-			</div>
-			<div class="columns">
-				<div class="column">
-					<div class="hero">
-						<div class="hero-body has-text-centered feature-item">
-							<div class="screenshot">
-								<img src="images/dark-mode.png" alt="Palbum's dark mode" width="350">
-							</div>
-							<h1 class="title is-spaced">Dark mode</h1>
-							<h2 class="subtitle">Match the theme to your preferences</h2>
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="hero">
-						<div class="hero-body has-text-centered feature-item">
-							<div class="screenshot">
-                                <img src="images/operating-systems.png" alt="Works on Linux, Windows and macOS" width="300">
-							</div>
-							<h1 class="title is-spaced">Works where you work</h1>
-							<h2 class="subtitle">No matter your operating system</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section class="container more-features">
-			<div class="columns">
-				<div class="column">
-					<div class="hero">
-						<div class="hero-body has-text-centered feature-item">
-							<div class="screenshot">
-                                <img src="images/intuitive.gif" alt="Gif showing how simple it is to use Palbum" width="280">
-							</div>
-							<h1 class="title is-spaced">Intuitive</h1>
-							<h2 class="subtitle">Just a list with a search bar</h2>
-						</div>
-					</div>
-				</div>
-				<div class="column">
-					<div class="hero">
-						<div class="hero-body has-text-centered feature-item">
-							<div class="screenshot">
-								<img src="images/shortcuts.svg" alt="keyboard icon illustrating the possibility to use shortcuts" width="200">
-							</div>
-							<h1 class="title is-spaced">Shortcuts</h1>
-                            <h2 class="subtitle">Full control <a href="#controls">without using a mouse</a></h2>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
         <section>
-            <div class="hero hero-body is-light has-text-centered feature-title">
+            <div class="hero hero-body has-text-centered feature-title">
                 <h1 class="title main-title">How to use</h1>
             </div>
-            <div class="hero is-light">
+            <div class="hero">
                 <div class="hero-body has-text-centered feature-item">
                     <div class="how-to-use-step">
                         <img src="images/spotify-multi-platforms.png" alt="Spotify on multiple platforms (computer, tablet and smartphone)" width="500">
@@ -194,25 +146,82 @@
                     <h2 class="subtitle">No need to have Palbum open</h2>
                 </div>
             </div>
-            <div class="hero is-light">
+            <div class="hero">
                 <div class="hero-body has-text-centered feature-item">
                     <div class="how-to-use-step">
                         <img src="images/browsing-through-list.gif" alt="Browsing through Palbum app" width="360">
                     </div>
-                    <h1 class="title is-spaced"><span class="numbered">2. </span>Check all albums/playlists you listened <strong>before</strong></h1>
-                    <h2 class="subtitle">The track that appears under the album is the last one you heard</h2>
+                    <h1 class="title is-spaced"><span class="numbered">2. </span>On Palbum, check the albums/playlists you listened <strong>before</strong></h1>
+                    <h2 class="subtitle">The track that appears under the album/playlist is the last one you heard</h2>
                 </div>
             </div>
-            <div class="hero is-light">
+            <div class="hero">
                 <div class="hero-body has-text-centered feature-item">
                     <div class="how-to-use-step">
                         <img src="images/usage.gif" alt="usage" width="600">
                     </div>
-                    <h1 class="title is-spaced"><span class="numbered">3. </span><strong>Resume listening</strong> from where you left off</h1>
-                    <h2 class="subtitle">Select the album/playlist you want <a href="#controls">with your mouse or keyboard</a></h2>
+                    <h1 class="title is-spaced"><span class="numbered">3. </span><strong>Resume listening</strong> on Spotify from where you left</h1>
+                    <h2 class="subtitle">Select the album/playlist you want on Palbum <a href="#controls">with your mouse or keyboard</a></h2>
                 </div>
             </div>
         </section>
+        <div class="hero is-light">
+			<section class="container">
+				<div class="hero hero-body is-light has-text-centered feature-title">
+					<h1 class="title main-title">Features</h1>
+				</div>
+				<div class="columns is-light">
+					<div class="column">
+						<div class="hero is-light">
+							<div class="hero-body has-text-centered feature-item">
+								<div class="screenshot">
+									<img src="images/dark-mode.png" alt="Palbum's dark mode" width="350">
+								</div>
+								<h1 class="title is-spaced">Dark mode</h1>
+								<h2 class="subtitle">Match the theme to your preferences</h2>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="hero is-light">
+							<div class="hero-body has-text-centered feature-item">
+								<div class="screenshot">
+                                <img src="images/operating-systems.png" alt="Works on Linux, Windows and macOS" width="300">
+								</div>
+								<h1 class="title is-spaced">Works where you work</h1>
+								<h2 class="subtitle">No matter your operating system</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="container more-features">
+				<div class="columns">
+					<div class="column">
+						<div class="hero is-light">
+							<div class="hero-body has-text-centered feature-item">
+								<div class="screenshot">
+                                <img src="images/intuitive.gif" alt="Gif showing how simple it is to use Palbum" width="280">
+								</div>
+								<h1 class="title is-spaced">Intuitive</h1>
+								<h2 class="subtitle">Just a list with a search bar</h2>
+							</div>
+						</div>
+					</div>
+					<div class="column">
+						<div class="hero is-light">
+							<div class="hero-body has-text-centered feature-item">
+								<div class="screenshot">
+									<img src="images/shortcuts.svg" alt="keyboard icon illustrating the possibility to use shortcuts" width="200">
+								</div>
+								<h1 class="title is-spaced">Shortcuts</h1>
+                            <h2 class="subtitle">Full control <a href="#controls">without using a mouse</a></h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+        </div>
         <section id="controls" class="container">
             <div class="hero hero-body has-text-centered feature-title">
                 <h1 class="title main-title">Controls</h1>
